@@ -12,7 +12,7 @@
 
 #include "../inc/fdf.h"
 
-void	rotate_z(int *x, int *y, int *z, float theta)
+/*void	rotate_z(int *x, int *y, int *z, float theta)
 {
 	int	new_x;
 	int	new_y;
@@ -54,15 +54,15 @@ void	find_rotation(t_var *data, int *x, int *y, int *z)
 	rotate_y(x, y, z, data->rotation_angley);
 	rotate_z(x, y, z, data->rotation_anglez);
 }
-
-void	to_isometric(t_var *data, int *x, int *y, int *z)
+*/
+void	to_isometric(/*t_var *data,*/ Point3D *point)
 {
 	int	prev_x;
 	int	map_ratio_mid;
 
-	map_ratio_mid = (data->max_rows + data->max_columns - 2);
-	prev_x = *x;
-	*x += *y;
-	*y = (*y / 2 - prev_x / 2) - *z;
-	*x -= data->size_line * map_ratio_mid / 2;
+	map_ratio_mid = (11 + 19 - 2);
+	prev_x = point->x;
+	point->x += point->y;
+	point->y = (point->y / 2 - prev_x / 2) - point->z;
+	//*x -= 19 * map_ratio_mid / 2;
 }

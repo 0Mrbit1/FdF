@@ -24,7 +24,7 @@ int ft_power(int number , int power)
 
 int convert_to_decimal(char *str)
 {
-    char *hex_digits;
+    char    *hex_digits;
     int i;
     int j;
     int len;
@@ -51,7 +51,5 @@ int convert_to_decimal(char *str)
         j =0;
         len--;
     }
-    printf("%d" , decimal); 
-
     return decimal;
 }
