@@ -98,10 +98,11 @@ int    **map_parser(int fd , int *l_array , int *number_of_lines )
         free(line);
         free_array_char(splited_line , line_points);
         line = get_next_line(fd);
-        if(line)
+        if(line){
             splited_line = ft_split(line,' ');
             line_points = _line_points(splited_line);
             y++;
+        }
     }
     *number_of_lines = y ; 
     return (map);

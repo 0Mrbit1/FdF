@@ -3,90 +3,8 @@
 
 #define ANGLE30 
 
-double degrees_to_radians(double angle_degrees ) {
-    return angle_degrees * M_PI / 180;
-}
 
-void isometric_projection(Point3D *point)
-{
-    int prev_x;
-    int scal; 
-
-    scal =  20;
-
-    prev_x = point->x;
-
-    point->x =   500 + (prev_x*scal - point->y*scal)*cos( degrees_to_radians(30));
-
-    point->y = 500  + (prev_x*scal+ point->y*scal)*sin( degrees_to_radians(30)) - point->z*scal;
-}
-
-void draw_line(void *mlx_ptr, void *win_ptr, int x0, int y0, int x1, int y1)
-{
-    int dx = abs(x1 - x0);
-    int dy = abs(y1 - y0);
-    int sx = x0 < x1 ? 1 : -1;
-    int sy = y0 < y1 ? 1 : -1;
-    int err = dx - dy;
-    int e2;
-
-    while (1)
-    {
-        mlx_pixel_put(mlx_ptr, win_ptr, x0, y0, 0xFFFFFF);
-
-        if (x0 == x1 && y0 == y1) break;
-
-        e2 = 2 * err;
-        if (e2 > -dy) {
-            err -= dy;
-            x0 += sx;
-        }
-        if (e2 < dx) {
-            err += dx;
-            y0 += sy;
-        }
-    }
-}
-
-void pointes_renderer(Point3D *head , void *mlx_ptr , void *win_ptr , int array_lenght , int number_of_lines )
-{
-    Point3D *node;
-    int i;
-    int links ;
-    int lines; 
-
-    links = 0 ; 
-    lines = 0 ; 
-
-    node = head;
-    while (node)
-    {
-        isometric_projection(node);
-        mlx_pixel_put(mlx_ptr, win_ptr,  node->x , node-> y , 0xFFFFFF);
-        node = node -> next ; 
-    }
-
-    node = head;
-
-    while (lines != number_of_lines -1)
-    {
-       
-       while(links != array_lenght -1 )
-       {
-           draw_line(mlx_ptr, win_ptr, node->x,  node->y ,  node->next->x, node->next->y);
-           draw_line(mlx_ptr, win_ptr, node->x,  node->y ,  node->next->next->x, node->next->next->y);
-           node = node->next->next;
-           links++;
-        } 
-        node = node->next; 
-        links =0 ;
-        lines++; 
-    }
-    
-
-}
-
-Point3D *store_in_node( int x , int y , int z)
+static Point3D *store_in_node( int x , int y , int z)
 {
 
     Point3D *node ;
@@ -99,7 +17,7 @@ Point3D *store_in_node( int x , int y , int z)
     return node;
 }
 
-Point3D *points_placer(int number_of_lines , int array_lenght , int **map)
+static Point3D *points_placer(int number_of_lines , int array_lenght , int **map)
 {
     int i;
     int j;
@@ -146,12 +64,21 @@ void fdf(int fd  , void *mlx_ptr , void *win_ptr)
     
     pointes_renderer(head , mlx_ptr , win_ptr , array_lenght , number_of_lines);
 }
+
+
 int main(int argc , char **argv)
 {
     void *mlx_ptr;
     void *win_ptr;
     int fd;
-    char *path= 	ft_strjoin( "../tests/maps/test_maps/",argv[1]);
+    char *path;
+
+    if (argc > 1)  
+            path = 	ft_strjoin( "../tests/maps/test_maps/",argv[1]);
+    else 
+    {
+        ft_printf("please entre a file") ; 
+    }
 
     fd = open(path  , O_RDONLY) ;
     mlx_ptr =  mlx_init() ;
