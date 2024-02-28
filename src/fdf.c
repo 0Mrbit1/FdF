@@ -12,7 +12,7 @@ void isometric_projection(Point3D *point)
     int prev_x;
     int scal; 
 
-    scal =  1;
+    scal =  20;
 
     prev_x = point->x;
 
@@ -119,7 +119,7 @@ Point3D *points_placer(int number_of_lines , int array_lenght , int **map)
     {
         while( j < array_lenght*3 -3 )
         {
-            point -> next = store_in_node( map[i+1][j] ,map[i+1][j+1] ,map[i+1][j+2]);
+            point -> next = store_in_node( map  [i+1][j] ,map[i+1][j+1] ,map[i+1][j+2]);
             j += 3; 
             point -> next -> next = store_in_node(map[i][j] ,map[i][j+1] ,map[i][j+2]);
             point = point -> next -> next;
@@ -133,7 +133,6 @@ Point3D *points_placer(int number_of_lines , int array_lenght , int **map)
       return head;
 }
    
-
 void fdf(int fd  , void *mlx_ptr , void *win_ptr)
 {
     int **map;
@@ -147,13 +146,14 @@ void fdf(int fd  , void *mlx_ptr , void *win_ptr)
     
     pointes_renderer(head , mlx_ptr , win_ptr , array_lenght , number_of_lines);
 }
-int main()
+int main(int argc , char **argv)
 {
     void *mlx_ptr;
     void *win_ptr;
     int fd;
+    char *path= 	ft_strjoin( "../tests/maps/test_maps/",argv[1]);
 
-    fd = open( "/home/abdellah/Desktop/project/fdf/tests/maps/test_maps/julia.fdf" , O_RDONLY) ;
+    fd = open(path  , O_RDONLY) ;
     mlx_ptr =  mlx_init() ;
     win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF"); 
     fdf( fd  , mlx_ptr , win_ptr);
