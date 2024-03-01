@@ -42,16 +42,18 @@ static void    transfer_data(int **hold , int ***map , int y , int line_lenght)
     at_y = 0;
     while(at_y < y )
     {
-        (*map)[at_y]  = malloc(sizeof(int)*line_lenght*3);
+        (*map)[at_y]  = malloc(sizeof(int)*line_lenght*4);
          i=0;
-         while(i < line_lenght*3)
+         while(i < line_lenght*4)
          {
             (*map)[at_y][i] = hold[at_y][i];
             i++;
-             (*map)[at_y][i] = hold[at_y][i];
+            (*map)[at_y][i] = hold[at_y][i];
             i++;
             (*map)[at_y][i] = hold[at_y][i]; 
-             i++; 
+            i++; 
+            (*map)[at_y][i] = hold[at_y][i]; 
+            i++;
          }
          at_y++;
     }
@@ -64,18 +66,28 @@ static void store_points(char **splited_line , int ***map , int y , int line_len
     int x;
     int **hold;
     int i;
+    char *color ; 
 
     x=0;
     i=0;
     hold = *map;
     *map=malloc(sizeof(int*)*(y +1));
     transfer_data(hold ,map , y , line_lenght);
-    (*map)[y] = malloc(sizeof(int)*line_lenght*3);
+    (*map)[y] = malloc(sizeof(int)*line_lenght*4);
     while(x < line_lenght)
     {
         (*map)[y][i++] = x;
         (*map)[y][i++] = y;
         (*map)[y][i++] = ft_atoi(splited_line[x++]);
+        color = ft_memchr(splited_line[x -1] , ',' , ft_strlen(splited_line[x-1]) ); 
+        if (color)
+        {
+            color += sizeof(char);
+            (*map)[y][i++] = convert_to_decimal(color); 
+        }
+        else
+            (*map)[y][i++] = 0xFFFFFF; 
+
     }
 }
 
@@ -98,11 +110,10 @@ int    **map_parser(int fd , int *l_array , int *number_of_lines )
         free(line);
         free_array_char(splited_line , line_points);
         line = get_next_line(fd);
-        if(line){
+        if(line)
             splited_line = ft_split(line,' ');
-            line_points = _line_points(splited_line);
-            y++;
-        }
+        line_points = _line_points(splited_line);
+        y++;
     }
     *number_of_lines = y ; 
     return (map);

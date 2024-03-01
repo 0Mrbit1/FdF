@@ -11,7 +11,7 @@ LIB_DIR = /home/abdellah/Desktop/project/fdf/lib
 LIBS = -lXext -lX11 -lm -lbsd -lft -lftgnl -lftprintf -lmlx_Linux
 
 # Source files
-SOURCES = rendering_engine.c map_parser.c fdf.c
+SOURCES = rendering_engine.c map_parser.c fdf.c hex_to_dec.c
 
 # Object files
 OBJECTS = $(SOURCES:.c=.o)
