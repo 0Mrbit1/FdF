@@ -60,11 +60,10 @@ void fdf(int fd  , void *mlx_ptr , void **win_ptr)
     
     head = points_placer(number_of_lines ,array_lenght , map);
     
-    *win_ptr = mlx_new_window(mlx_ptr, array_lenght*20, number_of_lines*20, "FDF");
+    *win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF");
     
     pointes_renderer(head , mlx_ptr , *win_ptr , array_lenght , number_of_lines);
 }
-
 
 int main(int argc , char **argv)
 {
@@ -88,6 +87,7 @@ int main(int argc , char **argv)
     }
     mlx_ptr =  mlx_init() ;
     fdf( fd  , mlx_ptr , &win_ptr );
+    
     mlx_loop(mlx_ptr);
     return 0;
 }
