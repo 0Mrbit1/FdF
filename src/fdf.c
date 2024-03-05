@@ -47,6 +47,17 @@ static Point3D *points_placer(int number_of_lines , int array_lenght , int **map
     }
       return head;
 }
+static void free_array(int **hold , int y )
+{
+    int j;
+
+    j =0 ;
+    while(j < y)
+        free(hold[j++]);
+
+    free(hold);
+}
+
    
 void fdf(int fd  , void *mlx_ptr , void **win_ptr)
 {
@@ -59,8 +70,10 @@ void fdf(int fd  , void *mlx_ptr , void **win_ptr)
     map = map_parser(fd , &array_lenght , &number_of_lines);    
     
     head = points_placer(number_of_lines ,array_lenght , map);
+    free_array(map , number_of_lines );
     
     *win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF");
+
     
     pointes_renderer(head , mlx_ptr , *win_ptr , array_lenght , number_of_lines);
 }
@@ -77,17 +90,28 @@ int main(int argc , char **argv)
     else 
     {
         perror("please provide fdf file");
+        return 0;
     }
 
     fd = open(path  , O_RDONLY) ;
+
     if (fd<0)
     {
         perror("cannot open file , it's either non existent or the file name is wrong , either way please use fdf maps");
         return 1;
     }
+    free(path);
     mlx_ptr =  mlx_init() ;
     fdf( fd  , mlx_ptr , &win_ptr );
-    
+
+
     mlx_loop(mlx_ptr);
+
+    mlx_destroy_window(mlx_ptr, win_ptr);
+
+  	mlx_destroy_display(mlx_ptr);
+    free(mlx_ptr);
+
+    close(fd);
     return 0;
 }

@@ -2,7 +2,7 @@
 CC = cc
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=leak
 
 # Directories
 LIB_DIR = /home/abdellah/Desktop/project/fdf/lib

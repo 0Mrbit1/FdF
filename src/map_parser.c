@@ -37,25 +37,13 @@ static int _line_points(char **line)
 static void    transfer_data(int **hold , int ***map , int y , int line_lenght)
 {
     int at_y;
-    int i;
 
     at_y = 0;
     while(at_y < y )
     {
         (*map)[at_y]  = malloc(sizeof(int)*line_lenght*4);
-         i=0;
-         while(i < line_lenght*4)
-         {
-            (*map)[at_y][i] = hold[at_y][i];
-            i++;
-            (*map)[at_y][i] = hold[at_y][i];
-            i++;
-            (*map)[at_y][i] = hold[at_y][i]; 
-            i++; 
-            (*map)[at_y][i] = hold[at_y][i]; 
-            i++;
-         }
-         at_y++;
+        ft_memmove((*map)[at_y] , hold[at_y] , sizeof(int)*line_lenght*4);
+        at_y++;
     }
     if(y)
         free_array(hold ,y);
