@@ -16,6 +16,27 @@ static Point3D *store_in_node( int x , int y , int z , int color )
     return node;
 }
 
+
+Point3D *setup_first_node ( Point3D **head , Point3D **point , int **map)
+{
+    int j ;
+    int i ;
+
+    i = 0 ;
+
+    j = 0;
+
+    *head = store_in_node(map[i][j] , map[i][j+1] , map[i][j+2] ,map[i][j+3] );  
+    *point = *head;
+    (*point) -> next = store_in_node( map[i+1][j] ,map[i+1][j+1] ,map[i+1][j+2] , map[i+1][j+3]);   
+    j += 4;
+    (*point) -> next -> next = store_in_node(map[i][j] ,map[i][j+1] ,map[i][j+2] , map[i][j+3]);
+    *point = (*point) -> next -> next;
+
+    return *head ; 
+
+}
+
 static Point3D *points_placer(int number_of_lines , int array_lenght , int **map)
 {
     int i;
@@ -24,13 +45,8 @@ static Point3D *points_placer(int number_of_lines , int array_lenght , int **map
     Point3D *head;
 
     i = 0;
-    j = 0;
-    head = store_in_node(map[i][j] , map[i][j+1] , map[i][j+2] ,map[i][j+3] );  
-    point = head;
-    point -> next = store_in_node( map[i+1][j] ,map[i+1][j+1] ,map[i+1][j+2] , map[i+1][j+3]);   
-    j += 4;
-    point -> next -> next = store_in_node(map[i][j] ,map[i][j+1] ,map[i][j+2] , map[i][j+3]);
-    point = point -> next -> next;
+    head = setup_first_node (&head , &point , map) ; 
+    j = 4;
     while (i < number_of_lines -1)
     {
         while( j < array_lenght*4 -4 )
@@ -40,12 +56,12 @@ static Point3D *points_placer(int number_of_lines , int array_lenght , int **map
             point -> next -> next = store_in_node(map[i][j] ,map[i][j+1] ,map[i][j+2] , map[i][j+3]);
             point = point -> next -> next;
         }
-    j = 0;
-    i++;
-    point -> next = store_in_node(map[i][j] ,map[i][j+1] ,map[i][j+2] , map[i][j+3]); 
-    point = point-> next ;  
+        j = 0;
+        i++;
+        point -> next = store_in_node(map[i][j] ,map[i][j+1] ,map[i][j+2] , map[i][j+3]); 
+        point = point-> next ;  
     }
-      return head;
+    return head;
 }
 static void free_array(int **hold , int y )
 {
@@ -74,7 +90,6 @@ void fdf(int fd  , void *mlx_ptr , void **win_ptr)
     
     *win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF");
 
-    
     pointes_renderer(head , mlx_ptr , *win_ptr , array_lenght , number_of_lines);
 }
 
@@ -98,12 +113,12 @@ int main(int argc , char **argv)
     if (fd<0)
     {
         perror("cannot open file , it's either non existent or the file name is wrong , either way please use fdf maps");
+        free(path);
         return 1;
     }
     free(path);
     mlx_ptr =  mlx_init() ;
     fdf( fd  , mlx_ptr , &win_ptr );
-
 
     mlx_loop(mlx_ptr);
 
