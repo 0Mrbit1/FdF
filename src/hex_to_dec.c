@@ -29,7 +29,7 @@ long convert_to_decimal(char *str)
     int j;
     int len;
     long decimal;
-     char    *hex_digits_min;
+    char *hex_digits_min;
     
     len = ft_strlen(str) -1;
     i = 0; 

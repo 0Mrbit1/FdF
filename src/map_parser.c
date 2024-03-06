@@ -2,38 +2,6 @@
 #include "../include/get_next_line.h"
 #include "../include/fdf.h"
 
-static void free_array(int **hold , int y )
-{
-    int j;
-
-    j =0 ;
-    while(j < y)
-        free(hold[j++]);
-
-    free(hold);
-}
-
-static void free_array_char(char **hold , int y )
-{
-    int j;
-
-    j =0 ;
-    while(j < y)
-        free(hold[j++]);
-
-    free(hold);
-}
-
-static int _line_points(char **line)
-{
-    int i;
-
-    i = 0;
-    while(line[i])
-        i++;
-    return  (i);
-}
-
 static void    transfer_data(int **hold , int ***map , int y , int line_lenght)
 {
     int at_y;
@@ -49,12 +17,24 @@ static void    transfer_data(int **hold , int ***map , int y , int line_lenght)
         free_array(hold ,y);
 }
 
+static void setup_color(int *i , char *splited_line  , int ***map , int y   )
+{
+    char *color ;
+    color = ft_memchr(splited_line , ',' , ft_strlen(splited_line) ); 
+    if (color)
+    {
+        color += sizeof(char);
+        (*map)[y][(*i)++] = convert_to_decimal(color); 
+    }
+    else
+        (*map)[y][(*i)++] = 0xFFFFFF; 
+}
+
 static void store_points(char **splited_line , int ***map , int y , int line_lenght)
 {
     int x;
     int **hold;
     int i;
-    char *color ; 
 
     x=0;
     i=0;
@@ -67,15 +47,7 @@ static void store_points(char **splited_line , int ***map , int y , int line_len
         (*map)[y][i++] = x;
         (*map)[y][i++] = y;
         (*map)[y][i++] = ft_atoi(splited_line[x++]);
-        color = ft_memchr(splited_line[x -1] , ',' , ft_strlen(splited_line[x-1]) ); 
-        if (color)
-        {
-            color += sizeof(char);
-            (*map)[y][i++] = convert_to_decimal(color); 
-        }
-        else
-            (*map)[y][i++] = 0xFFFFFF; 
-
+     setup_color(&i , splited_line[x-1]  , map , y   );
     }
 }
 
@@ -83,9 +55,9 @@ int    **map_parser(int fd , int *l_array , int *number_of_lines )
 {
     char    *line;
     char    **splited_line;
-    int line_points;
-    int y;
-    int **map;
+    int     line_points;
+    int     y;
+    int     **map;
 
     y = 0;
     line = get_next_line(fd);

@@ -13,19 +13,16 @@ static void isometric_projection(Point3D *point  ,int map_width , int map_lenght
 
     prev_x = point->x;
 
-    point->x =   500 + (prev_x*scal - point->y*scal)*cos(degrees_to_radians(30));
+    point->x =  500 + (prev_x*scal - point->y*scal)*cos(degrees_to_radians(30));
 
-
-    point->y =  500   + (prev_x*scal+ point->y*scal)*sin( degrees_to_radians(30)) - point->z*scal;
+    point->y =  500 + (prev_x*scal+ point->y*scal)*sin( degrees_to_radians(30)) - point->z*scal;
 }
-
 
 Point3D *jump_to_node(Point3D *node , int skip)
 {
     int i;
     
     i = 0;
-
     while (i < skip  )
     {
         node = node->next;
@@ -72,9 +69,7 @@ static void draw_line(void *mlx_ptr, void *win_ptr, Point3D *node, Point3D *next
             y0 += sy;
         }
     }
-
 }
-
 
 void clear_list(Point3D *head ) 
 
@@ -83,14 +78,12 @@ void clear_list(Point3D *head )
     Point3D *node ; 
 
     node = head ; 
-    
     while (node)
     {
         to_free = node ;  
         node = node -> next ; 
         free(to_free); 
     }
- 
 }
 
 void draw_right_side(Point3D *head , int array_lenght , void *mlx_ptr , void *win_ptr , int number_of_lines)
@@ -100,12 +93,10 @@ void draw_right_side(Point3D *head , int array_lenght , void *mlx_ptr , void *wi
     int lines ;
 
     node = head ; 
-
     node =  jump_to_node(node , array_lenght*2  -2);
     below = jump_to_node(node , array_lenght*2  -1);
     draw_line(mlx_ptr, win_ptr, node ,  below);
     lines = 0;
-   
     while (lines < number_of_lines - 3)
     {
         node = below ; 
@@ -126,7 +117,6 @@ void project(Point3D *head , int array_lenght , int number_of_lines , void *mlx_
         mlx_pixel_put(mlx_ptr, win_ptr,  node->x , node-> y , node->color);
         node = node -> next; 
     }
-
 }
 
 void pointes_renderer(Point3D *head , void *mlx_ptr , void *win_ptr , int array_lenght , int number_of_lines )
@@ -153,5 +143,5 @@ void pointes_renderer(Point3D *head , void *mlx_ptr , void *win_ptr , int array_
         lines++; 
     }
     draw_right_side(head , array_lenght , mlx_ptr , win_ptr , number_of_lines);  
-    clear_list(head ); 
+    clear_list(head); 
 }
