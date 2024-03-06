@@ -1,5 +1,35 @@
 #include "../include/fdf.h"
 
+
+void draw_pixel(void *img_ptr, int bits_per_pixel, int size_line, int x, int y, int color)
+{
+    // Calculate the index of the pixel (x, y) in the image data
+    int index = (y * size_line) + (x * (bits_per_pixel / 8));
+
+    // Set the pixel color at the calculated index
+    char *img_data = (char *)img_ptr;
+
+    // Extracting color components without bitwise operators
+    int blue = color / 65536;           // Extract red component
+    int green = (color % 65536) / 256; // Extract green component
+    int red = color % 256;            // Extract blue component
+
+    // Assign color components to the image data with consideration for endianness
+    if (bits_per_pixel == 24) {
+        // For 24 bits per pixel (3 bytes per pixel), assuming RGB format
+        img_data[index] = blue;        //Blue component
+        img_data[index + 1] = green;   //Green component
+        img_data[index + 2] = red;     //Red component
+    } else {
+        // For other bits per pixel formats, adjust the assignment accordingly
+        // You may need to consider different image formats and endianness here
+        // This example assumes little-endian ordering
+        img_data[index] = red;         //Red component
+        img_data[index + 1] = green;   //Green component
+        img_data[index + 2] = blue;    //Blue component
+    }
+}
+
 static void isometric_projection(Point3D *point  ,int map_width , int map_lenght )
 {
     int prev_x;
@@ -63,7 +93,6 @@ void draw_right_side(Point3D *head , int array_lenght , void *mlx_ptr , void *wi
     int lines ;
 
     node = head ; 
-
     node =  jump_to_node(node , array_lenght*2  -2);
     below = jump_to_node(node , array_lenght*2  -1);
     draw_line(mlx_ptr, win_ptr, node ,  below);
@@ -78,7 +107,7 @@ void draw_right_side(Point3D *head , int array_lenght , void *mlx_ptr , void *wi
     }
 }
 
-void project(Point3D *head , int array_lenght , int number_of_lines , void *mlx_ptr , void * win_ptr)
+void project(Point3D *head , int array_lenght , int number_of_lines , void *mlx_ptr , char *img_ptr , int bits_per_pixel, int size_line , int endian)
 {
     Point3D *node;
 
@@ -86,10 +115,9 @@ void project(Point3D *head , int array_lenght , int number_of_lines , void *mlx_
     while (node)
     {
         isometric_projection(node , array_lenght , number_of_lines);
-        mlx_pixel_put(mlx_ptr, win_ptr,  node->x , node-> y , node->color);
+        draw_pixel(img_ptr, bits_per_pixel,  size_line, node->x, node-> y, node->color);
         node = node -> next; 
     }
-
 }
 
 void pointes_renderer(Point3D *head , void *mlx_ptr , void *win_ptr , int array_lenght , int number_of_lines )
@@ -97,11 +125,22 @@ void pointes_renderer(Point3D *head , void *mlx_ptr , void *win_ptr , int array_
     Point3D *node;
     int links;
     int lines; 
+    void *img_ptr ;
+    int bits_per_pixel;
+    int size_line;
+    int endian;
+
+    img_ptr = mlx_new_image(mlx_ptr, 1000, 1000);
+
+    char *img_data = mlx_get_data_addr(img_ptr, &bits_per_pixel, &size_line, &endian);
+
 
     links = 0; 
     lines = 0; 
     node = head;
-    project(head ,array_lenght , number_of_lines , mlx_ptr , win_ptr);
+    project(head ,array_lenght , number_of_lines , mlx_ptr , img_data , bits_per_pixel,  size_line , endian);
+    mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 0, 0);
+    return;
     while (lines != number_of_lines -1)
     {
        while(links != array_lenght -1 )

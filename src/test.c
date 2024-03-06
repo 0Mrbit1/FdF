@@ -29,8 +29,6 @@ void draw_pixel(void *img_ptr, int bits_per_pixel, int size_line, int x, int y, 
     }
 }
 
-
-
 int main()
 {
     void *mlx_ptr = mlx_init();
@@ -41,7 +39,6 @@ int main()
     int bits_per_pixel;
     int size_line;
     int endian;
-    char *img_data = mlx_get_data_addr(img_ptr, &bits_per_pixel, &size_line, &endian);
 
     // Draw a pixel at position (500, 500) with color white (0xFFFFFF)
     draw_pixel(img_data, bits_per_pixel, size_line, 500, 500, 0xFFFFFF);
