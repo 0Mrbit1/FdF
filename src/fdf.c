@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:41 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/07 00:20:33 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/07 02:39:10 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ static void	fdf(int fd, void *mlx_ptr, void **win_ptr)
 
 	map = map_parser(fd, &array_lenght, &number_of_lines);
 	head = points_placer(number_of_lines, array_lenght, map);
-	free_array(map, number_of_lines);
 	*win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF");
-	pointes_renderer(head, mlx_ptr, *win_ptr, array_lenght, number_of_lines);
+	pointes_renderer( mlx_ptr , win_ptr , head ,  array_lenght ,  number_of_lines , map );
+	free_array(map, number_of_lines);
 }
 
 int	main(int argc, char **argv)

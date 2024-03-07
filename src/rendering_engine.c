@@ -43,9 +43,7 @@ static void isometric_projection(Point3D *point  ,int map_width , int map_lenght
     point->y =  450   + (prev_x*scal+ point->y*scal)*sin( degrees_to_radians(30)) - point->z*scal;
 }
 
-void draw_last (int number_of_lines , int array_lenght , )
-
-static void draw_line(void *mlx_ptr, void *win_ptr, Point3D *node, Point3D *next , void *img_ptr ,  int bits_per_pixel,   int size_line )
+static void draw_line( Point3D *node, Point3D *next , void *img_ptr ,  int bits_per_pixel,   int size_line )
 {
     int x0 ; 
     int y0 ;
@@ -87,7 +85,7 @@ static void draw_line(void *mlx_ptr, void *win_ptr, Point3D *node, Point3D *next
 
 }
 
-void draw_right_side(Point3D *head , int array_lenght , void *mlx_ptr , void *win_ptr , int number_of_lines , void *img_ptr , int bits_per_pixel , int size_line)
+void draw_right_side(Point3D *head , int array_lenght , int number_of_lines , void *img_ptr , int bits_per_pixel , int size_line)
 {
     Point3D *node ;
     Point3D *below;
@@ -96,17 +94,54 @@ void draw_right_side(Point3D *head , int array_lenght , void *mlx_ptr , void *wi
     node = head ; 
     node =  jump_to_node(node , array_lenght*2  -2);
     below = jump_to_node(node , array_lenght*2  -1);
-    draw_line(mlx_ptr, win_ptr, node, below , img_ptr ,  bits_per_pixel,  size_line );
+    draw_line( node, below , img_ptr ,  bits_per_pixel,  size_line );
     lines = 0;
    
     while (lines < number_of_lines - 3)
     {
         node = below ; 
         below = jump_to_node(node , array_lenght*2  -1);
-          draw_line(mlx_ptr, win_ptr, node, below , img_ptr ,  bits_per_pixel,  size_line );
+          draw_line( node, below , img_ptr ,  bits_per_pixel,  size_line );
         lines++;
     }
 }
+
+void draw_below_side( int array_lenght , int number_of_lines , void *img_ptr , int bits_per_pixel , int size_line , int **map)
+{
+    int i ;
+    int j ; 
+    Point3D *head;
+    Point3D *node;
+
+    i = number_of_lines - 1 ;
+    ft_printf("%d" , i);
+
+    j = 0;
+
+    head = store_in_node( map[i][j],  map[i][j+1],  map[i][j+2], map[i][j+3]) ;
+    node = head ;
+    j +=4 ; 
+    while(j < array_lenght*4)
+    {
+        node ->next =  store_in_node( map[i][j],  map[i][j+1],  map[i][j+2], map[i][j+3]);
+        node = node->next ;
+        j+=4;
+    }
+    node = head ;
+    while(node)
+    {
+        isometric_projection(node , array_lenght , number_of_lines);
+        node = node->next ; 
+    }
+    node = head; 
+
+    while(node && node->next)
+    {
+        draw_line( node, node->next , img_ptr ,   bits_per_pixel,  size_line );
+        node = node->next;
+    }
+}
+
 
 void project(Point3D *head , int array_lenght , int number_of_lines , void *mlx_ptr , char *img_ptr , int bits_per_pixel, int size_line , int endian)
 {
@@ -116,12 +151,12 @@ void project(Point3D *head , int array_lenght , int number_of_lines , void *mlx_
     while (node)
     {
         isometric_projection(node , array_lenght , number_of_lines);
-        draw_pixel(img_ptr, bits_per_pixel,  size_line, node->x, node-> y, node->color);
+        draw_pixel(img_ptr, bits_per_pixel,  size_line, node->x, node-> y , node->color);
         node = node -> next; 
     }
 }
 
-void pointes_renderer(Point3D *head , void *mlx_ptr , void *win_ptr , int array_lenght , int number_of_lines )
+void pointes_renderer(void *mlx_ptr , void **win_ptr  , Point3D *head , int array_lenght , int number_of_lines , int **map )
 {
     Point3D *node;
     int links;
@@ -144,8 +179,8 @@ void pointes_renderer(Point3D *head , void *mlx_ptr , void *win_ptr , int array_
     {
        while(links != array_lenght -1 )
        {
-           draw_line(mlx_ptr, win_ptr, node, node->next , img_data ,   bits_per_pixel,   size_line );
-           draw_line(mlx_ptr, win_ptr, node, node->next->next , img_data ,   bits_per_pixel,   size_line );
+           draw_line( node, node->next , img_data ,   bits_per_pixel,   size_line );
+           draw_line( node, node->next->next , img_data ,   bits_per_pixel,   size_line );
            node = node->next->next;
            links++;
         } 
@@ -153,7 +188,8 @@ void pointes_renderer(Point3D *head , void *mlx_ptr , void *win_ptr , int array_
         links =0 ;
         lines++; 
     }
-    draw_right_side(head , array_lenght , mlx_ptr , win_ptr , number_of_lines , img_data ,  bits_per_pixel ,  size_line) ;
-     mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 0, 0);
+    draw_right_side(head , array_lenght, number_of_lines , img_data ,  bits_per_pixel ,  size_line ) ;
     clear_list(head );
+    draw_below_side( array_lenght , number_of_lines , img_data ,  bits_per_pixel ,  size_line , map);
+    mlx_put_image_to_window(mlx_ptr, *win_ptr, img_ptr, 0, 0);
 }
