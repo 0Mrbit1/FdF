@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:52 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/06 02:50:52 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/07 04:04:03 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,25 @@ static void	store_points(char **splited_line, int ***map, int y,
 	}
 }
 
-int	**map_parser(int fd, int *l_array, int *number_of_lines)
+int	**map_parser(int fd, int *array_lenght, int *number_of_lines)
 {
 	char	*line;
 	char	**splited_line;
-	int		line_points;
-	int		y;
 	int		**map;
 
-	y = 0;
+	*number_of_lines = 0;
 	line = get_next_line(fd);
 	splited_line = ft_split(line, ' ');
-	line_points = _line_points(splited_line);
-	*l_array = line_points;
+	*array_lenght = _line_points(splited_line);
 	while (line)
 	{
-		store_points(splited_line, &map, y, line_points);
+		store_points(splited_line, &map, *number_of_lines, *array_lenght);
 		free(line);
-		free_array_char(splited_line, line_points);
+		free_array_char(splited_line, *array_lenght);
 		line = get_next_line(fd);
 		if (line)
 			splited_line = ft_split(line, ' ');
-		line_points = _line_points(splited_line);
-		y++;
+		(*number_of_lines)++;
 	}
-	*number_of_lines = y;
 	return (map);
 }

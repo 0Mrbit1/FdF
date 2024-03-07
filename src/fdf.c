@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:41 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/07 02:39:10 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/07 05:22:06 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static Point3D	*points_placer(int number_of_lines, int array_lenght, int **map)
 	return (head);
 }
 
-static void	fdf(int fd, void *mlx_ptr, void **win_ptr)
+static void	fdf(int fd, void *mlx_ptr)
 {
 	int		**map;
 	int		array_lenght;
@@ -51,39 +51,37 @@ static void	fdf(int fd, void *mlx_ptr, void **win_ptr)
 
 	map = map_parser(fd, &array_lenght, &number_of_lines);
 	head = points_placer(number_of_lines, array_lenght, map);
-	*win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF");
-	pointes_renderer( mlx_ptr , win_ptr , head ,  array_lenght ,  number_of_lines , map );
-	free_array(map, number_of_lines);
+	rendering_engine(head, array_lenght, number_of_lines, mlx_ptr);
+	// free_array(map, number_of_lines);
 }
+
 
 int	main(int argc, char **argv)
 {
 	void	*mlx_ptr;
-	void	*win_ptr;
 	int		fd;
 	char	*path;
 
-	if (argc > 1)
-		path = ft_strjoin("../tests/maps/test_maps/", argv[1]);
-	else
+
+	if (argc < 2)
 	{
-		perror("please provide fdf file");
-		return (0);
+		perror("plesae provide FDF file.");
+		return 1;
 	}
+	path = ft_strjoin("../tests/maps/test_maps/", argv[1]);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
-		perror("cannot open file ,it's either non existent or the file name is wrong ,either way please use fdf maps");
+		perror("cannot open file.");
 		free(path);
-		return (1);
+		return 1;
 	}
-	free(path);
+	
 	mlx_ptr = mlx_init();
-	fdf(fd, mlx_ptr, &win_ptr);
-	mlx_loop(mlx_ptr);
-	mlx_destroy_window(mlx_ptr, win_ptr);
+	fdf(fd, mlx_ptr);
+	/*mlx_destroy_window(mlx_ptr, win_ptr);
 	mlx_destroy_display(mlx_ptr);
 	free(mlx_ptr);
-	close(fd);
-	return (0);
+	close(fd);*/
+	return 0 ; 
 }
