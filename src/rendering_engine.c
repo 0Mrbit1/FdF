@@ -34,57 +34,55 @@ static void	isometric_projection(Point3D *point, int map_width, int map_lenght)
 
 	scal = 1000 / (map_lenght + map_width);
 	prev_x = point->x;
-	point->x = 450 + (prev_x * scal - point->y * scal)
+	point->x = 470 + (prev_x * scal - point->y * scal)
 		* cos(degrees_to_radians(30));
-	point->y = 450 + (prev_x * scal + point->y * scal)
+	point->y = 470 + (prev_x * scal + point->y * scal)
 		* sin(degrees_to_radians(30)) - point->z * scal;
 }
 
-static void draw_line(Point3D *node, Point3D *next, char *img_coordinates, image_data img_data) {
- 
-    int coord_data[10]; // Array to store x0, y0, x1, y1, color, dx, dy, sx, sy, err
-    img_pxl pixel;
-
-    // Storing coordinates and color in coord_data array
-    coord_data[0] = node->x;
-    coord_data[1] = node->y;
-    coord_data[2] = next->x;
-    coord_data[3] = next->y;
-    coord_data[4] = node->color;
-
-    // Calculating delta (dx, dy)
-    coord_data[5] = abs(coord_data[2] - coord_data[0]);
-    coord_data[6] = abs(coord_data[3] - coord_data[1]);
-
-    // Calculating steps (sx, sy)
-    coord_data[7] = coord_data[0] < coord_data[2] ? 1 : -1;
-    coord_data[8] = coord_data[1] < coord_data[3] ? 1 : -1;
-
-    // Calculating err
-    coord_data[9] = coord_data[5] - coord_data[6];
-
-    while (1) {
-        // Extracting x, y, color from coord_data and drawing pixel
-        pixel.x = coord_data[0];
-        pixel.y = coord_data[1];
-        pixel.color = coord_data[4];
-        draw_pixel(img_data, img_coordinates, pixel);
-
-        if (coord_data[0] == coord_data[2] && coord_data[1] == coord_data[3])
-            break;
-
-        int e2 = 2 * coord_data[9];
-        if (e2 > -coord_data[6]) {
-            coord_data[9] -= coord_data[6];
-            coord_data[0] += coord_data[7];
-        }
-        if (e2 < coord_data[5]) {
-            coord_data[9] += coord_data[5];
-            coord_data[1] += coord_data[8];
-        }
-    }
+void	initialise_array(int *coord_data, Point3D *node, Point3D *next)
+{
+	coord_data[0] = node->x;
+	coord_data[1] = node->y;
+	coord_data[2] = next->x;
+	coord_data[3] = next->y;
+	coord_data[4] = node->color;
+	coord_data[5] = abs(coord_data[2] - coord_data[0]);
+	coord_data[6] = abs(coord_data[3] - coord_data[1]);
+	coord_data[7] = coord_data[0] < coord_data[2] ? 1 : -1;
+	coord_data[8] = coord_data[1] < coord_data[3] ? 1 : -1;
+	coord_data[9] = coord_data[5] - coord_data[6];
 }
 
+static void	draw_line(Point3D *node, Point3D *next, char *img_coordinates,
+		image_data img_data)
+{
+	int		coord_data[10];
+	img_pxl	pixel;
+	int		e2;
+
+	initialise_array(coord_data, node, next);
+	while (1)
+	{
+		pixel.x = coord_data[0];
+		pixel.y = coord_data[1];
+		pixel.color = coord_data[4];
+		draw_pixel(img_data, img_coordinates, pixel);
+		if (coord_data[0] == coord_data[2] && coord_data[1] == coord_data[3])
+			break ;
+		e2 = 2 * coord_data[9];
+		if (e2 > -coord_data[6])
+		{
+			coord_data[9] -= coord_data[6];
+			coord_data[0] += coord_data[7];
+		}
+		if (e2 < coord_data[5])
+		{
+			coord_data[9] += coord_data[5];
+			coord_data[1] += coord_data[8];
+		}
+	}
+}
 
 /*void	draw_right_side(Point3D *head, in map_data[0], int map_data[1],
 		void *img_ptr, int bits_per_pixel, int size_line)
@@ -101,6 +99,10 @@ static void draw_line(Point3D *node, Point3D *next, char *img_coordinates, image
 	Point3D	*node;
 	Point3D	*node;
 	img_pxl	pixel;
+	Point3D	*node;
+	img_pxl	pixel;
+	img_pxl	pixel;
+	Point3D	*node;
 
 	node = head;
 	node = jump_to_node(node map_data[0] * 2 - 2);
@@ -148,8 +150,8 @@ static void draw_line(Point3D *node, Point3D *next, char *img_coordinates, image
 void	project(Point3D *head, int *map_data, image_data img_data,
 		char *img_cordinates)
 {
+	img_pxl pixel;
 	Point3D *node;
-	img_pxl pixel ; 
 	node = head;
 	while (node)
 	{
