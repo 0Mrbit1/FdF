@@ -2,7 +2,7 @@
 CC = cc
 
 # Compiler flags
-CFLAGS = -Wall -Wextra 
+CFLAGS = -Wall -Wextra -g
 
 # Directories
 LIB_DIR = /home/abdellah/Desktop/project/fdf/lib

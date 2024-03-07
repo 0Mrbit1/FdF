@@ -1,32 +1,31 @@
 #include "../include/fdf.h"
 
 
-void draw_pixel(void *img_ptr, int bits_per_pixel, int size_line, int x, int y, int color)
+void draw_pixel(void *img_ptr, int bits_per_pixel, int size_line, int x, int y, int color )
 {
     // Calculate the index of the pixel (x, y) in the image data
     int index = (y * size_line) + (x * (bits_per_pixel / 8));
-
+    //ft_printf("%d\n" , index) ; 
     // Set the pixel color at the calculated index
     char *img_data = (char *)img_ptr;
 
-    // Extracting color components without bitwise operators
-    int blue = color / 65536;           // Extract red component
-    int green = (color % 65536) / 256; // Extract green component
-    int red = color % 256;            // Extract blue component
 
-    // Assign color components to the image data with consideration for endianness
-    if (bits_per_pixel == 24) {
-        // For 24 bits per pixel (3 bytes per pixel), assuming RGB format
-        img_data[index] = blue;        //Blue component
-        img_data[index + 1] = green;   //Green component
-        img_data[index + 2] = red;     //Red component
-    } else {
-        // For other bits per pixel formats, adjust the assignment accordingly
-        // You may need to consider different image formats and endianness here
-        // This example assumes little-endian ordering
-        img_data[index] = red;         //Red component
-        img_data[index + 1] = green;   //Green component
-        img_data[index + 2] = blue;    //Blue component
+    // Extracting color components without bitwise operators
+    if (index >= 0 && index < (size_line * 1000)) // Assuming HEIGHT is the height of the image in pixels
+    {
+        // Set the pixel color at the calculated index
+        char *img_data = (char *)img_ptr;
+
+        // Extracting color components without bitwise operators
+        int red = color / 65536;           // Extract red component
+        int green = (color % 65536) / 256; // Extract green component
+        int blue = color % 256;  
+          // Extract blue component
+
+        // Assign color components to the image data with consideration for endianness
+        img_data[index] = blue;        // Blue component
+        img_data[index+1] = green;   // Green component
+        img_data[index+2] = red;     // Red component
     }
 }
 
@@ -39,13 +38,14 @@ static void isometric_projection(Point3D *point  ,int map_width , int map_lenght
 
     prev_x = point->x;
 
-    point->x =   500 + (prev_x*scal - point->y*scal)*cos(degrees_to_radians(30));
+    point->x =   450 + (prev_x*scal - point->y*scal)*cos(degrees_to_radians(30));
 
-
-    point->y =  500   + (prev_x*scal+ point->y*scal)*sin( degrees_to_radians(30)) - point->z*scal;
+    point->y =  450   + (prev_x*scal+ point->y*scal)*sin( degrees_to_radians(30)) - point->z*scal;
 }
 
-static void draw_line(void *mlx_ptr, void *win_ptr, Point3D *node, Point3D *next)
+void draw_last (int number_of_lines , int array_lenght , )
+
+static void draw_line(void *mlx_ptr, void *win_ptr, Point3D *node, Point3D *next , void *img_ptr ,  int bits_per_pixel,   int size_line )
 {
     int x0 ; 
     int y0 ;
@@ -53,9 +53,8 @@ static void draw_line(void *mlx_ptr, void *win_ptr, Point3D *node, Point3D *next
     int y1;
     int color; 
 
-    x0 = node->x ; 
-    y0 = node->y;
-
+    x0 = node->x  ; 
+    y0 = node->y ;
     x1 = next->x; 
     y1  = next->y ; 
     color = node->color; 
@@ -66,10 +65,12 @@ static void draw_line(void *mlx_ptr, void *win_ptr, Point3D *node, Point3D *next
     int sy = y0 < y1 ? 1 : -1;
     int err = dx - dy;
     int e2;
+    int i ;
+    i = 0;
 
     while (1)
     {
-        mlx_pixel_put(mlx_ptr, win_ptr, x0, y0, color);
+        draw_pixel(img_ptr, bits_per_pixel, size_line,  x0,  y0, color );
 
         if (x0 == x1 && y0 == y1) break;
 
@@ -86,7 +87,7 @@ static void draw_line(void *mlx_ptr, void *win_ptr, Point3D *node, Point3D *next
 
 }
 
-void draw_right_side(Point3D *head , int array_lenght , void *mlx_ptr , void *win_ptr , int number_of_lines)
+void draw_right_side(Point3D *head , int array_lenght , void *mlx_ptr , void *win_ptr , int number_of_lines , void *img_ptr , int bits_per_pixel , int size_line)
 {
     Point3D *node ;
     Point3D *below;
@@ -95,14 +96,14 @@ void draw_right_side(Point3D *head , int array_lenght , void *mlx_ptr , void *wi
     node = head ; 
     node =  jump_to_node(node , array_lenght*2  -2);
     below = jump_to_node(node , array_lenght*2  -1);
-    draw_line(mlx_ptr, win_ptr, node ,  below);
+    draw_line(mlx_ptr, win_ptr, node, below , img_ptr ,  bits_per_pixel,  size_line );
     lines = 0;
    
     while (lines < number_of_lines - 3)
     {
         node = below ; 
         below = jump_to_node(node , array_lenght*2  -1);
-        draw_line(mlx_ptr, win_ptr, node ,  below);
+          draw_line(mlx_ptr, win_ptr, node, below , img_ptr ,  bits_per_pixel,  size_line );
         lines++;
     }
 }
@@ -139,14 +140,12 @@ void pointes_renderer(Point3D *head , void *mlx_ptr , void *win_ptr , int array_
     lines = 0; 
     node = head;
     project(head ,array_lenght , number_of_lines , mlx_ptr , img_data , bits_per_pixel,  size_line , endian);
-    mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 0, 0);
-    return;
     while (lines != number_of_lines -1)
     {
        while(links != array_lenght -1 )
        {
-           draw_line(mlx_ptr, win_ptr, node ,  node->next);
-           draw_line(mlx_ptr, win_ptr, node ,  node->next->next);
+           draw_line(mlx_ptr, win_ptr, node, node->next , img_data ,   bits_per_pixel,   size_line );
+           draw_line(mlx_ptr, win_ptr, node, node->next->next , img_data ,   bits_per_pixel,   size_line );
            node = node->next->next;
            links++;
         } 
@@ -154,6 +153,7 @@ void pointes_renderer(Point3D *head , void *mlx_ptr , void *win_ptr , int array_
         links =0 ;
         lines++; 
     }
-    draw_right_side(head , array_lenght , mlx_ptr , win_ptr , number_of_lines);  
-    clear_list(head ); 
+    draw_right_side(head , array_lenght , mlx_ptr , win_ptr , number_of_lines , img_data ,  bits_per_pixel ,  size_line) ;
+     mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 0, 0);
+    clear_list(head );
 }

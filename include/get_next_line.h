@@ -6,20 +6,19 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:28:17 by acharik           #+#    #+#             */
-/*   Updated: 2024/03/06 03:19:23 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/07 01:35:44 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+# define BUFFER_SIZE 42
 # endif
 # include <limits.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-
 
 /*typedef struct s_list
 {
