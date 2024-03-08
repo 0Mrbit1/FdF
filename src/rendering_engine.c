@@ -30,11 +30,9 @@ void	draw_right_side(Point3D *head, int *map_data , image_data img_data  , char 
 		draw_line(node, below, img_coordinates, img_data);
 		lines++;
 	}
-	node = store_in_node(map , map_data[1] - 1, map_data[0]*4 - 4); 
-	
-	isometric_projection(node ,  map_data[0], map_data[1]);
-	project(node, map_data, img_data, img_coordinates);
-	//draw_line(below, node, img_coordinates, img_data);
+	node = store_in_node(map, map_data[1] - 1 , map_data[0]*4 -4); 
+	isometric_projection(node,  map_data[0],  map_data[1]);
+	draw_line(below, node, img_coordinates, img_data);
 
 }
 

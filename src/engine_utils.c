@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 01:05:33 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/08 07:06:35 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/08 22:15:40 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	draw_pixel(image_data img_data, char *img_cordinates, img_pxl pixel)
 
 	index = (pixel.y * img_data.size_line) + (pixel.x * (img_data.bits_per_pixel
 				/ 8));
-	ft_printf("%d\n" , index);
 	if (index < 0 ) 
 		return ;
 	img_cordinates[index] = pixel.color % 256;
@@ -34,7 +33,7 @@ void	isometric_projection(Point3D *point, int map_width, int map_lenght)
 	int	scal;
 	int prev_y; 
 
-	scal = 1000 / (map_lenght + map_width);
+	scal = 1000 / (map_lenght + map_width)/2;
 	prev_y = point ->y ;
 	prev_x = point->x;
 	point->x = 470 + (prev_x * scal - point->y * scal)
