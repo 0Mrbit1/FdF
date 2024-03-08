@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:41 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/08 01:22:07 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/08 02:16:14 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,6 @@ int	main(int argc, char **argv)
 	}
 	mlx_ptr = mlx_init();
 	fdf(fd, mlx_ptr);
-	/*mlx_destroy_window(mlx_ptr, win_ptr);
-	mlx_destroy_display(mlx_ptr);
-	free(mlx_ptr);
-	close(fd);*/
+	close(fd);
 	return (0);
 }

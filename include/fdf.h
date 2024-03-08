@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:26 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/08 00:57:21 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/08 02:30:23 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ typedef struct image_pixel
 	int y ; 
 	int color ; 
 } img_pxl ; 
+
+typedef struct tools
+{
+	void *mlx_ptr; 
+	void *img_ptr;
+	void *win_ptr;
+} free_tools ; 
 
 
 
