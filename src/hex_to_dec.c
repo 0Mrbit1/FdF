@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:51:16 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/08 01:43:54 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/08 05:57:58 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ long convert_to_decimal(char *str)
     while (len >= 0) {   
         while (hex_digits[0][j] != '\0') {
             if (hex_digits[0][j] == str[len] || hex_digits[1][j] == str[len]) {
-                decimal += j * ft_power(16, i);  // Corrected calculation
+                decimal += j * ft_power(16, i);
                 break;
             }
             j++;

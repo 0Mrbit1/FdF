@@ -12,42 +12,26 @@
 
 #include "../include/fdf.h"
 
-/*void	draw_right_side(Point3D *head, in map_data[0], int map_data[1],
-		void *img_ptr, int bits_per_pixel, int size_line)
+void	draw_right_side(Point3D *head, int *map_data , image_data img_data  , char *img_coordinates)
 {
 	Point3D	*node;
 	Point3D	*below;
 	int		lines;
-	int		i;
-	int		j;
-	Point3D	*head;
-	Point3D	*node;
-	Point3D	*node;
-	Point3D	*node;
-	Point3D	*node;
-	Point3D	*node;
-	img_pxl	pixel;
-	Point3D	*node;
-	img_pxl	pixel;
-	img_pxl	pixel;
-	Point3D	*node;
-	Point3D	*node;
-	int		links;
-	int		lines;
 
 	node = head;
-	node = jump_to_node(node map_data[0] * 2 - 2);
-	below = jump_to_node(node map_data[0] * 2 - 1);
-	draw_line(node, below, img_ptr, bits_per_pixel, size_line);
+	node = jump_to_node(node ,  map_data[0] * 2 - 2);
+	below = jump_to_node(node  , map_data[0] * 2 - 1);
+	draw_line(node, below, img_coordinates, img_data);
 	lines = 0;
 	while (lines < map_data[1] - 3)
 	{
 		node = below;
-		below = jump_to_node(node map_data[0] * 2 - 1);
-		draw_line(node, below, img_ptr, bits_per_pixel, size_line);
+		below = jump_to_node(node ,map_data[0] * 2 - 1);
+		draw_line(node, below, img_coordinates, img_data);
 		lines++;
 	}
-}*/
+}
+
 /*void	draw_below_side(in map_data[0], int map_data[1], void *img_ptr,
 		int bits_per_pixel, int size_line, int **map)
 {
@@ -132,6 +116,7 @@ void	rendering_engine(Point3D *head, int array_lenght, int number_of_lines,
 	map_data[0] = array_lenght;
 	map_data[1] = number_of_lines;
 	pointes_renderer(head, img_data, img_cordinates, map_data);
+	draw_right_side(head, map_data ,  img_data  , img_cordinates);
 	win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF");
 
 	tools_free.mlx_ptr = mlx_ptr ; 
