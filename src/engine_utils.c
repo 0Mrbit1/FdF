@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 01:05:33 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/08 04:44:19 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/08 05:12:22 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	isometric_projection(Point3D *point, int map_width, int map_lenght)
 	prev_x = point->x;
 	point->x = 470 + (prev_x * scal - point->y * scal)
 		* cos(degrees_to_radians(30));
-	if (point->x <0)
+	if (point->x <0 ||  point->x > 1000)
 	{
 		point->x = 470 + (prev_x * scal/2 - point->y * scal)
 		* cos(degrees_to_radians(30));
 	}
 	point->y = 470 + (prev_x * scal + point->y * scal)
 		* sin(degrees_to_radians(30)) - point->z * scal;
-	if (point->y <0)
+	if (point->y < 0 || point->y > 1000)
 	{
 		point->y = 470 + (prev_x * scal + prev_y * scal)
 		* sin(degrees_to_radians(30)) - point->z * scal/2;
