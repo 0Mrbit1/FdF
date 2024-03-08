@@ -44,13 +44,15 @@ void	draw_right_side(Point3D *head, int *map_data , image_data img_data  , char 
 	draw_last_point(below, map_data ,  img_data  , img_coordinates , map);
 }
 
-void	draw_below_side(int *map_data , image_data img_data  , char *img_coordinates , int **map)
-{
-	int j;
-	Point3D *node ;
-	Point3D *head;
 
-	j = 0;
+Point3D *setup_nodes( int *map_data  , int **map )
+{
+
+	int j;
+	Point3D *head;
+	Point3D *node;
+
+	j =0;
 	head = store_in_node(map , map_data[1] - 1 , j );
 	node = head;
 	j += 4;
@@ -66,6 +68,16 @@ void	draw_below_side(int *map_data , image_data img_data  , char *img_coordinate
 		isometric_projection(node ,  map_data[0], map_data[1]);
 		node = node->next;
 	}
+	return head ;
+}
+
+void	draw_below_side(int *map_data , image_data img_data  , char *img_coordinates , int **map)
+{
+	Point3D *node ;
+	Point3D *head;
+
+	head = setup_nodes( map_data  , map );
+	
 	node = head;
 	while (node && node->next)
 	{
