@@ -110,6 +110,7 @@ int close_window_event(free_tools mlx_free)
 	mlx_destroy_image(mlx_free.mlx_ptr, mlx_free.img_ptr);
 	mlx_destroy_window(mlx_free.mlx_ptr, mlx_free.win_ptr);
 	mlx_destroy_display(mlx_free.mlx_ptr);
+	mlx_loop_end (mlx_free.mlx_ptr);
 	free(mlx_free.mlx_ptr);
 	return 0;
 }
