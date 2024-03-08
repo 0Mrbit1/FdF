@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:51:16 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/07 23:14:23 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/08 01:28:43 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,33 @@ int	ft_power(int base, int exponent)
 	return (result);
 }
 
+void	initialise_data(char **hex_digits, int *i, int *j)
+{
+	*i = 0;
+	*j = 0;
+	hex_digits[0] = "0123456789ABCDEF";
+	hex_digits[1] = "0123456789abcdef";
+}
+
 long	convert_to_decimal(char *str)
 {
-	int  len = ft_strlen(str) - 1;
-	long decimal = 0;
-	char *hex_digits_up = "0123456789ABCDEF";
-	char *hex_digits_min = "0123456789abcdef";
+	int		len;
+	long	decimal;
+	char	*hex_digits[2];
+	int		i;
+	int		j;
 
-	int i = 0;
+	initialise_data(char **hex_digits, int *i, int *j);
+	len = ft_strlen(str) - 1;
+	decimal = 0;
 	while (len > 1)
 	{
-		int j = 0;
-		while (hex_digits_up[j] != '\0')
+		while (hex_digits[0][j] != '\0')
 		{
-			if (hex_digits_up[j] == str[len] || hex_digits_min[j] == str[len])
+			if (hex_digits[0][j] == str[len] || hex_digits[1][j] == str[len])
 			{
 				decimal += j * ft_power(16, i);
-				break;
+				break ;
 			}
 			j++;
 		}

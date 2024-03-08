@@ -12,8 +12,6 @@
 
 #include "../include/fdf.h"
 
-
-
 /*void	draw_right_side(Point3D *head, in map_data[0], int map_data[1],
 		void *img_ptr, int bits_per_pixel, int size_line)
 {
@@ -33,6 +31,9 @@
 	img_pxl	pixel;
 	img_pxl	pixel;
 	Point3D	*node;
+	Point3D	*node;
+	int		links;
+	int		lines;
 
 	node = head;
 	node = jump_to_node(node map_data[0] * 2 - 2);
@@ -77,13 +78,12 @@
 		node = node->next;
 	}
 }*/
-
 void	pointes_renderer(Point3D *head, image_data img_data,
 		char *img_cordinates, int *map_data)
 {
-	Point3D	*node;
 	int		links;
 	int		lines;
+	Point3D	*node;
 
 	links = 0;
 	lines = 0;
@@ -107,24 +107,19 @@ void	pointes_renderer(Point3D *head, image_data img_data,
 void	rendering_engine(Point3D *head, int array_lenght, int number_of_lines,
 		void *mlx_ptr)
 {
-	image_data img_data;
-	char *img_cordinates;
-	void *win_ptr;
-	int map_data[2];
+	image_data	img_data;
+	char		*img_cordinates;
+	void		*win_ptr;
+	int			map_data[2];
 
 	img_data.img_ptr = mlx_new_image(mlx_ptr, 1000, 1000);
-
 	img_cordinates = mlx_get_data_addr(img_data.img_ptr,
 			&(img_data.bits_per_pixel), &(img_data.size_line),
 			&(img_data.endian));
-
 	map_data[0] = array_lenght;
 	map_data[1] = number_of_lines;
 	pointes_renderer(head, img_data, img_cordinates, map_data);
-
 	win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF");
-
 	mlx_put_image_to_window(mlx_ptr, win_ptr, img_data.img_ptr, 0, 0);
-
 	mlx_loop(mlx_ptr);
 }

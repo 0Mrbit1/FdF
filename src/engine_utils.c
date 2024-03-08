@@ -27,7 +27,7 @@ void	draw_pixel(image_data img_data, char *img_cordinates, img_pxl pixel)
 	img_cordinates[index + 2] = pixel.color / 65536;
 }
 
- void	isometric_projection(Point3D *point, int map_width, int map_lenght)
+void	isometric_projection(Point3D *point, int map_width, int map_lenght)
 {
 	int	prev_x;
 	int	scal;
@@ -87,8 +87,9 @@ void	draw_line(Point3D *node, Point3D *next, char *img_coordinates,
 void	project(Point3D *head, int *map_data, image_data img_data,
 		char *img_cordinates)
 {
-	img_pxl pixel;
-	Point3D *node;
+	img_pxl	pixel;
+	Point3D	*node;
+
 	node = head;
 	while (node)
 	{

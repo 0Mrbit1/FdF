@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:51:00 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/07 06:37:56 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/08 01:19:59 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ Point3D	*jump_to_node(Point3D *node, int skip)
 
 void	clear_list(Point3D *head)
 {
-	Point3D *to_free;
-	Point3D *node;
+	Point3D	*to_free;
+	Point3D	*node;
 
 	node = head;
 	while (node)
