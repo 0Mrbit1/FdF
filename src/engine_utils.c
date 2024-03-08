@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 01:05:33 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/08 05:57:30 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/08 07:06:35 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	draw_pixel(image_data img_data, char *img_cordinates, img_pxl pixel)
 
 	index = (pixel.y * img_data.size_line) + (pixel.x * (img_data.bits_per_pixel
 				/ 8));
-	if (index < 0)
+	ft_printf("%d\n" , index);
+	if (index < 0 ) 
 		return ;
 	img_cordinates[index] = pixel.color % 256;
 	img_cordinates[index + 1] = (pixel.color % 65536) / 256;

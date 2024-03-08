@@ -6,21 +6,11 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:51:16 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/08 05:57:58 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/08 06:56:00 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(char *str)
-{
-	int	len;
-
-	len = 0;
-	while (str[len] != '\0')
-	{
-		len++;
-	}
-	return (len);
-}
+#include "../include/fdf.h"
 
 int	ft_power(int base, int exponent)
 {

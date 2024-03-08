@@ -12,7 +12,7 @@
 
 #include "../include/fdf.h"
 
-void	draw_right_side(Point3D *head, int *map_data , image_data img_data  , char *img_coordinates)
+void	draw_right_side(Point3D *head, int *map_data , image_data img_data  , char *img_coordinates , int **map)
 {
 	Point3D	*node;
 	Point3D	*below;
@@ -30,6 +30,12 @@ void	draw_right_side(Point3D *head, int *map_data , image_data img_data  , char 
 		draw_line(node, below, img_coordinates, img_data);
 		lines++;
 	}
+	node = store_in_node(map , map_data[1] - 1, map_data[0]*4 - 4); 
+	
+	isometric_projection(node ,  map_data[0], map_data[1]);
+	project(node, map_data, img_data, img_coordinates);
+	//draw_line(below, node, img_coordinates, img_data);
+
 }
 
 void	draw_below_side(Point3D *head, int *map_data , image_data img_data  , char *img_coordinates , int **map)
@@ -98,6 +104,7 @@ int close_window_event(int keycode  , free_tools *mlx_free)
 	return 1;
 }
 
+
 void	rendering_engine(Point3D *head, int array_lenght, int number_of_lines,
 		void *mlx_ptr , int **map)
 {
@@ -114,7 +121,7 @@ void	rendering_engine(Point3D *head, int array_lenght, int number_of_lines,
 	map_data[0] = array_lenght;
 	map_data[1] = number_of_lines;
 	pointes_renderer(head, img_data, img_cordinates, map_data);
-	draw_right_side(head, map_data ,  img_data  , img_cordinates);
+	draw_right_side(head, map_data ,  img_data  , img_cordinates , map);
 	draw_below_side(head, map_data , img_data  , img_cordinates , map);
 	win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF");
 
