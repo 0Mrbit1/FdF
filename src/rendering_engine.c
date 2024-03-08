@@ -33,7 +33,7 @@ void	draw_right_side(Point3D *head, int *map_data , image_data img_data  , char 
 	node = store_in_node(map, map_data[1] - 1 , map_data[0]*4 -4); 
 	isometric_projection(node,  map_data[0],  map_data[1]);
 	draw_line(below, node, img_coordinates, img_data);
-
+	clear_list(node);
 }
 
 void	draw_below_side(Point3D *head, int *map_data , image_data img_data  , char *img_coordinates , int **map)
@@ -63,6 +63,7 @@ void	draw_below_side(Point3D *head, int *map_data , image_data img_data  , char 
 		draw_line(node, node->next, img_coordinates, img_data);
 		node = node->next;
 	}
+	clear_list(head);
 }
 void	pointes_renderer(Point3D *head, image_data img_data,
 		char *img_cordinates, int *map_data)
