@@ -104,15 +104,16 @@ void	pointes_renderer(Point3D *head, image_data img_data,
 	}
 }
 
-int close_window_event(free_tools mlx_free)
+int close_window_event(int keycode  , free_tools *mlx_free)
 {
-
-	mlx_destroy_image(mlx_free.mlx_ptr, mlx_free.img_ptr);
-	mlx_destroy_window(mlx_free.mlx_ptr, mlx_free.win_ptr);
-	mlx_destroy_display(mlx_free.mlx_ptr);
-	mlx_loop_end (mlx_free.mlx_ptr);
-	free(mlx_free.mlx_ptr);
-	return 0;
+	if (keycode == 65307)
+	{
+		mlx_destroy_image(mlx_free->mlx_ptr ,mlx_free->img_ptr);
+		mlx_destroy_window(mlx_free->mlx_ptr ,mlx_free->win_ptr);
+		mlx_loop_end(mlx_free->mlx_ptr);
+		return 0;
+	}
+	return 1;
 }
 
 void	rendering_engine(Point3D *head, int array_lenght, int number_of_lines,
@@ -122,7 +123,7 @@ void	rendering_engine(Point3D *head, int array_lenght, int number_of_lines,
 	char		*img_cordinates;
 	void		*win_ptr;
 	int			map_data[2];
-	free_tools tools_free;
+	free_tools 	tools_free;
 
 	img_data.img_ptr = mlx_new_image(mlx_ptr, 1000, 1000);
 	img_cordinates = mlx_get_data_addr(img_data.img_ptr,
@@ -137,7 +138,6 @@ void	rendering_engine(Point3D *head, int array_lenght, int number_of_lines,
 	tools_free.win_ptr = win_ptr ; 
 	tools_free.img_ptr = img_data.img_ptr ; 
 	mlx_put_image_to_window(mlx_ptr, win_ptr, img_data.img_ptr, 0, 0);
-	mlx_hook(win_ptr, 17, 0, &close_window_event, &tools_free );
+	mlx_key_hook(win_ptr, &close_window_event, &tools_free);
 	mlx_loop(mlx_ptr);
-
 }

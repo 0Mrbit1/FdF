@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:41 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/08 02:35:44 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/08 04:38:09 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static Point3D	*points_placer(int number_of_lines, int array_lenght, int **map)
 	}
 	return (head);
 }
-
+//
 static void	fdf(int fd, void *mlx_ptr)
 {
 	int		**map;
@@ -50,6 +50,7 @@ static void	fdf(int fd, void *mlx_ptr)
 	head = points_placer(number_of_lines, array_lenght, map);
 	rendering_engine(head, array_lenght, number_of_lines, mlx_ptr);
 	free_array(map, number_of_lines);
+	clear_list(head);
 }
 
 int	main(int argc, char **argv)
@@ -73,6 +74,9 @@ int	main(int argc, char **argv)
 	}
 	mlx_ptr = mlx_init();
 	fdf(fd, mlx_ptr);
+	mlx_destroy_display(mlx_ptr);
+	free(mlx_ptr);
+	free(path);
 	close(fd);
 	return (0);
 }
