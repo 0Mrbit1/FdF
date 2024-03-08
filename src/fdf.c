@@ -48,7 +48,7 @@ static void	fdf(int fd, void *mlx_ptr)
 
 	map = map_parser(fd, &array_lenght, &number_of_lines);
 	head = points_placer(number_of_lines, array_lenght, map);
-	rendering_engine(head, array_lenght, number_of_lines, mlx_ptr , map);
+	rendering_engine(head, array_lenght, number_of_lines, mlx_ptr, map);
 	free_array(map, number_of_lines);
 	clear_list(head);
 }

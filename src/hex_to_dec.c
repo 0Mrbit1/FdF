@@ -33,29 +33,31 @@ void	initialise_data(char **hex_digits, int *i, int *j)
 	hex_digits[1] = "0123456789abcdef";
 }
 
-long convert_to_decimal(char *str)
+long	convert_to_decimal(char *str)
 {
-    int len;
-    long decimal;
-    char *hex_digits[2];
-    int i;
-    int j;
+	int		len;
+	long	decimal;
+	char	*hex_digits[2];
+	int		i;
+	int		j;
 
-    initialise_data(hex_digits, &i, &j);
-    len = ft_strlen(str) - 1;
-    decimal = 0;
-    while (len >= 0) {   
-        while (hex_digits[0][j] != '\0') {
-            if (hex_digits[0][j] == str[len] || hex_digits[1][j] == str[len]) {
-                decimal += j * ft_power(16, i);
-                break;
-            }
-            j++;
-        }
+	initialise_data(hex_digits, &i, &j);
+	len = ft_strlen(str) - 1;
+	decimal = 0;
+	while (len >= 0)
+	{
+		while (hex_digits[0][j] != '\0')
+		{
+			if (hex_digits[0][j] == str[len] || hex_digits[1][j] == str[len])
+			{
+				decimal += j * ft_power(16, i);
+				break ;
+			}
+			j++;
+		}
 		j = 0;
-        i++;
-        len--;
-    }
-    return decimal;
+		i++;
+		len--;
+	}
+	return (decimal);
 }
-
