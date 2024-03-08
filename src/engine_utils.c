@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 01:05:33 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/08 22:15:40 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/08 22:44:29 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	isometric_projection(Point3D *point, int map_width, int map_lenght)
 	int	scal;
 	int prev_y; 
 
-	scal = 1000 / (map_lenght + map_width)/2;
+	scal = 1000 / (map_lenght + map_width);
 	prev_y = point ->y ;
 	prev_x = point->x;
 	point->x = 470 + (prev_x * scal - point->y * scal)
