@@ -12,6 +12,17 @@
 
 #include "../include/fdf.h"
 
+void draw_last_point(Point3D *below, int *map_data , image_data img_data  , char *img_coordinates , int **map)
+{
+
+	Point3D *node ; 
+
+	node = store_in_node(map, map_data[1] - 1 , map_data[0]*4 -4); 
+	isometric_projection(node,  map_data[0],  map_data[1]);
+	draw_line(below, node, img_coordinates, img_data);
+	clear_list(node);
+}
+
 void	draw_right_side(Point3D *head, int *map_data , image_data img_data  , char *img_coordinates , int **map)
 {
 	Point3D	*node;
@@ -30,16 +41,14 @@ void	draw_right_side(Point3D *head, int *map_data , image_data img_data  , char 
 		draw_line(node, below, img_coordinates, img_data);
 		lines++;
 	}
-	node = store_in_node(map, map_data[1] - 1 , map_data[0]*4 -4); 
-	isometric_projection(node,  map_data[0],  map_data[1]);
-	draw_line(below, node, img_coordinates, img_data);
-	clear_list(node);
+	draw_last_point(below, map_data ,  img_data  , img_coordinates , map);
 }
 
-void	draw_below_side(Point3D *head, int *map_data , image_data img_data  , char *img_coordinates , int **map)
+void	draw_below_side(int *map_data , image_data img_data  , char *img_coordinates , int **map)
 {
 	int j;
 	Point3D *node ;
+	Point3D *head;
 
 	j = 0;
 	head = store_in_node(map , map_data[1] - 1 , j );
@@ -121,7 +130,7 @@ void	rendering_engine(Point3D *head, int array_lenght, int number_of_lines,
 	map_data[1] = number_of_lines;
 	pointes_renderer(head, img_data, img_cordinates, map_data);
 	draw_right_side(head, map_data ,  img_data  , img_cordinates , map);
-	draw_below_side(head, map_data , img_data  , img_cordinates , map);
+	draw_below_side( map_data , img_data  , img_cordinates , map);
 	win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF");
 
 	tools_free.mlx_ptr = mlx_ptr ; 
