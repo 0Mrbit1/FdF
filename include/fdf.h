@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:26 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/08 02:30:23 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/08 06:23:32 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ typedef struct tools
 
 int						**map_parser(int fd, int *l_array,
 							int *number_of_lines);
-void rendering_engine(Point3D *head , int array_lenght , int number_of_lines , void *mlx_ptr) ; 
+void rendering_engine(Point3D *head, int array_lenght, int number_of_lines,
+		void *mlx_ptr , int **map);
 int						convert_to_decimal(char *str);
 void					free_array(int **hold, int y);
 void					free_array_char(char **hold, int y);

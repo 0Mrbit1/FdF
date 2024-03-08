@@ -32,36 +32,34 @@ void	draw_right_side(Point3D *head, int *map_data , image_data img_data  , char 
 	}
 }
 
-/*void	draw_below_side(in map_data[0], int map_data[1], void *img_ptr,
-		int bits_per_pixel, int size_line, int **map)
+void	draw_below_side(Point3D *head, int *map_data , image_data img_data  , char *img_coordinates , int **map)
 {
-	i = map_data[1] - 1;
-	ft_printf("%d", i);
+	int j;
+	Point3D *node ;
+
 	j = 0;
-	head = store_in_node(map[i][j], map[i][j + 1], map[i][j + 2], map[i][j
-			+ 3]);
+	head = store_in_node(map , map_data[1] - 1 , j );
 	node = head;
 	j += 4;
-	while (j  map_data[0] * 4)
+	while (j  < map_data[0] * 4)
 	{
-		node->next = store_in_node(map[i][j], map[i][j + 1], map[i][j + 2],
-				map[i][j + 3]);
+		node->next = store_in_node(map , map_data[1] - 1 , j );
 		node = node->next;
 		j += 4;
 	}
 	node = head;
 	while (node)
 	{
-		isometric_projection(node map_data[0], map_data[1]);
+		isometric_projection(node ,  map_data[0], map_data[1]);
 		node = node->next;
 	}
 	node = head;
 	while (node && node->next)
 	{
-		draw_line(node, node->next, img_ptr, bits_per_pixel, size_line);
+		draw_line(node, node->next, img_coordinates, img_data);
 		node = node->next;
 	}
-}*/
+}
 void	pointes_renderer(Point3D *head, image_data img_data,
 		char *img_cordinates, int *map_data)
 {
@@ -101,7 +99,7 @@ int close_window_event(int keycode  , free_tools *mlx_free)
 }
 
 void	rendering_engine(Point3D *head, int array_lenght, int number_of_lines,
-		void *mlx_ptr)
+		void *mlx_ptr , int **map)
 {
 	image_data	img_data;
 	char		*img_cordinates;
@@ -117,6 +115,7 @@ void	rendering_engine(Point3D *head, int array_lenght, int number_of_lines,
 	map_data[1] = number_of_lines;
 	pointes_renderer(head, img_data, img_cordinates, map_data);
 	draw_right_side(head, map_data ,  img_data  , img_cordinates);
+	draw_below_side(head, map_data , img_data  , img_cordinates , map);
 	win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF");
 
 	tools_free.mlx_ptr = mlx_ptr ; 
