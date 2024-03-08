@@ -78,7 +78,6 @@
 	}
 }*/
 
-
 void	pointes_renderer(Point3D *head, image_data img_data,
 		char *img_cordinates, int *map_data)
 {
