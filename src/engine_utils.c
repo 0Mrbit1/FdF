@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 01:05:33 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/09 23:13:17 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/10 00:27:10 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,18 @@ void	draw_pixel(image_data img_data, img_pxl pixel)
 void	isometric_projection(Point3D *point, int map_width, int map_lenght )
 {
 	int	prev_x;
+	int prev_y;
 	int scal; 
 	
-	scal = 1000 / (map_lenght + map_width);
+	scal = 1000 / (map_lenght + map_width)/2;
 	prev_x = point->x;
+	prev_y = point->y;
 	point->x = 450 + (prev_x * scal - point->y * scal)
 		* cos(ANGLE);
 	point->y = 500 + (prev_x * scal + point->y * scal)
 		* sin(ANGLE) - point->z * scal;
-	if (point->x < 0 || point->x > 1000)
-	{
-		point->x = (point->x)/2 ; 
-		 
-	}
-	if (point->y < 0 || point->y > 1000)
-	{
-		point->y = (point->y)/2 ; 
-	}
+
+	
 }
 
 void	initialise_array(int *coord_data, Point3D *node, Point3D *next)
