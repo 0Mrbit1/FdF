@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:41 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/09 01:35:37 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/09 06:52:33 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ static void	fdf(int fd, void *mlx_ptr)
 	Point3D	*head;
 
 	map = map_parser(fd, &map_data[0], &map_data[1]);
+	if (!map)
+	{
+		perror("please entre valid map.");
+		return;
+	}
 	head = points_placer(map_data[1], map_data[0], map);
 	rendering_engine(head, map_data, mlx_ptr, map);
 	free_array(map, map_data[1]);
@@ -60,7 +65,7 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 	{
-		perror("plesae provide FDF file.");
+		perror("please provide FDF file.");
 		return (1);
 	}
 	path = ft_strjoin("../tests/maps/test_maps/", argv[1]);

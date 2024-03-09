@@ -12,6 +12,8 @@
 
 #include "../include/fdf.h"
 
+
+
 void	pointes_renderer(Point3D *head, image_data img_data, int *map_data)
 {
 	int		links;

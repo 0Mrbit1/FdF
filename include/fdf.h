@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:26 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/09 01:35:11 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/09 05:50:54 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,3 +82,4 @@ void	draw_right_side(Point3D *head, int *map_data, image_data img_data,
 		int **map);
 void	draw_last_point(Point3D *below, int *map_data, image_data img_data,
 		int **map);
+int check_for_chars(char **str);

@@ -6,13 +6,13 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 01:05:33 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/09 02:03:27 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/09 07:11:15 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-#define ANGLE 30
+#define ANGLE 30*M_PI / 180
 
 void	draw_pixel(image_data img_data, img_pxl pixel)
 {
@@ -27,28 +27,28 @@ void	draw_pixel(image_data img_data, img_pxl pixel)
 	img_data.img_cordinates[index + 2] = pixel.color / 65536;
 }
 
-void	isometric_projection(Point3D *point, int map_width, int map_lenght)
+void	isometric_projection(Point3D *point, int map_width, int map_lenght , int reduce)
 {
 	int	prev_x;
-	int	scal;
 	int	prev_y;
-
-	scal = 1000 / (map_lenght + map_width);
+	int scal_x; 
+	int scal_y;
+	
+	scal_x = 1000 / (map_lenght + map_width)/reduce;
+	scal_y = 1000 / (map_lenght + map_width)/reduce;
 	prev_y = point->y;
 	prev_x = point->x;
-	point->x = 470 + (prev_x * scal - point->y * scal)
-		* cos(degrees_to_radians(ANGLE));
+	point->x = 470 + (prev_x * scal_x - point->y * scal_y)
+		* cos(ANGLE);
+	point->y = 700 + (prev_x * scal + point->y * scal)
+		* sin(ANGLE) - point->z * scal;
 	if (point->x < 0 || point->x > 1000)
 	{
-		point->x = 470 + (prev_x * scal / 2 - point->y * scal)
-			* cos(degrees_to_radians(ANGLE));
+		return reduce/2 ; 
 	}
-	point->y = 470 + (prev_x * scal + point->y * scal)
-		* sin(degrees_to_radians(ANGLE)) - point->z * scal;
 	if (point->y < 0 || point->y > 1000)
 	{
-		point->y = 470 + (prev_x * scal + prev_y * scal)
-			* sin(degrees_to_radians(ANGLE)) - point->z * scal / 2;
+		return reduce/2 ; 
 	}
 }
 

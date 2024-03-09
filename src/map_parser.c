@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:52 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/07 04:04:03 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/09 06:56:30 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	**map_parser(int fd, int *array_lenght, int *number_of_lines)
 	char	**splited_line;
 	int		**map;
 
+	map = NULL;
 	*number_of_lines = 0;
 	line = get_next_line(fd);
 	splited_line = ft_split(line, ' ');
