@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 01:05:33 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/09 07:11:15 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/09 23:13:17 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,25 @@ void	draw_pixel(image_data img_data, img_pxl pixel)
 	img_data.img_cordinates[index + 2] = pixel.color / 65536;
 }
 
-void	isometric_projection(Point3D *point, int map_width, int map_lenght , int reduce)
+void	isometric_projection(Point3D *point, int map_width, int map_lenght )
 {
 	int	prev_x;
-	int	prev_y;
-	int scal_x; 
-	int scal_y;
+	int scal; 
 	
-	scal_x = 1000 / (map_lenght + map_width)/reduce;
-	scal_y = 1000 / (map_lenght + map_width)/reduce;
-	prev_y = point->y;
+	scal = 1000 / (map_lenght + map_width);
 	prev_x = point->x;
-	point->x = 470 + (prev_x * scal_x - point->y * scal_y)
+	point->x = 450 + (prev_x * scal - point->y * scal)
 		* cos(ANGLE);
-	point->y = 700 + (prev_x * scal + point->y * scal)
+	point->y = 500 + (prev_x * scal + point->y * scal)
 		* sin(ANGLE) - point->z * scal;
 	if (point->x < 0 || point->x > 1000)
 	{
-		return reduce/2 ; 
+		point->x = (point->x)/2 ; 
+		 
 	}
 	if (point->y < 0 || point->y > 1000)
 	{
-		return reduce/2 ; 
+		point->y = (point->y)/2 ; 
 	}
 }
 

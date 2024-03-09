@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:26 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/09 05:50:54 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/09 23:11:36 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ double					degrees_to_radians(double angle_degrees);
 void					clear_list(Point3D *head);
 Point3D					*jump_to_node(Point3D *node, int skip);
 void					draw_pixel(image_data img_data, img_pxl pixel);
-void					isometric_projection(Point3D *point, int map_width,
-							int map_lenght);
+void	isometric_projection(Point3D *point, int map_width, int map_lenght );
 void					initialise_array(int *coord_data, Point3D *node,
 							Point3D *next);
 void					draw_line(Point3D *node, Point3D *next,
