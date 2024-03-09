@@ -12,81 +12,7 @@
 
 #include "../include/fdf.h"
 
-void	draw_last_point(Point3D *below, int *map_data, image_data img_data,
-		char *img_coordinates, int **map)
-{
-	Point3D	*node;
-
-	node = store_in_node(map, map_data[1] - 1, map_data[0] * 4 - 4);
-	isometric_projection(node, map_data[0], map_data[1]);
-	draw_line(below, node, img_coordinates, img_data);
-	clear_list(node);
-}
-
-void	draw_right_side(Point3D *head, int *map_data, image_data img_data,
-		char *img_coordinates, int **map)
-{
-	Point3D	*node;
-	Point3D	*below;
-	int		lines;
-
-	node = head;
-	node = jump_to_node(node, map_data[0] * 2 - 2);
-	below = jump_to_node(node, map_data[0] * 2 - 1);
-	draw_line(node, below, img_coordinates, img_data);
-	lines = 0;
-	while (lines < map_data[1] - 3)
-	{
-		node = below;
-		below = jump_to_node(node, map_data[0] * 2 - 1);
-		draw_line(node, below, img_coordinates, img_data);
-		lines++;
-	}
-	draw_last_point(below, map_data, img_data, img_coordinates, map);
-}
-
-Point3D	*setup_nodes(int *map_data, int **map)
-{
-	int		j;
-	Point3D	*head;
-	Point3D	*node;
-
-	j = 0;
-	head = store_in_node(map, map_data[1] - 1, j);
-	node = head;
-	j += 4;
-	while (j < map_data[0] * 4)
-	{
-		node->next = store_in_node(map, map_data[1] - 1, j);
-		node = node->next;
-		j += 4;
-	}
-	node = head;
-	while (node)
-	{
-		isometric_projection(node, map_data[0], map_data[1]);
-		node = node->next;
-	}
-	return (head);
-}
-
-void	draw_below_side(int *map_data, image_data img_data,
-		char *img_coordinates, int **map)
-{
-	Point3D	*node;
-	Point3D	*head;
-
-	head = setup_nodes(map_data, map);
-	node = head;
-	while (node && node->next)
-	{
-		draw_line(node, node->next, img_coordinates, img_data);
-		node = node->next;
-	}
-	clear_list(head);
-}
-void	pointes_renderer(Point3D *head, image_data img_data,
-		char *img_cordinates, int *map_data)
+void	pointes_renderer(Point3D *head, image_data img_data, int *map_data)
 {
 	int		links;
 	int		lines;
@@ -95,13 +21,13 @@ void	pointes_renderer(Point3D *head, image_data img_data,
 	links = 0;
 	lines = 0;
 	node = head;
-	project(head, map_data, img_data, img_cordinates);
+	project(head, map_data, img_data);
 	while (lines != map_data[1] - 1)
 	{
 		while (links != map_data[0] - 1)
 		{
-			draw_line(node, node->next, img_cordinates, img_data);
-			draw_line(node, node->next->next, img_cordinates, img_data);
+			draw_line(node, node->next, img_data);
+			draw_line(node, node->next->next, img_data);
 			node = node->next->next;
 			links++;
 		}
@@ -123,24 +49,19 @@ int	close_window_event(int keycode, free_tools *mlx_free)
 	return (1);
 }
 
-void	rendering_engine(Point3D *head, int array_lenght, int number_of_lines,
-		void *mlx_ptr, int **map)
+void	rendering_engine(Point3D *head, int *map_data, void *mlx_ptr, int **map)
 {
 	image_data	img_data;
-	char		*img_cordinates;
 	void		*win_ptr;
-	int			map_data[2];
 	free_tools	tools_free;
 
 	img_data.img_ptr = mlx_new_image(mlx_ptr, 1000, 1000);
-	img_cordinates = mlx_get_data_addr(img_data.img_ptr,
+	img_data.img_cordinates = mlx_get_data_addr(img_data.img_ptr,
 			&(img_data.bits_per_pixel), &(img_data.size_line),
 			&(img_data.endian));
-	map_data[0] = array_lenght;
-	map_data[1] = number_of_lines;
-	pointes_renderer(head, img_data, img_cordinates, map_data);
-	draw_right_side(head, map_data, img_data, img_cordinates, map);
-	draw_below_side(map_data, img_data, img_cordinates, map);
+	pointes_renderer(head, img_data, map_data);
+	draw_right_side(head, map_data, img_data, map);
+	draw_below_side(map_data, img_data, map);
 	win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF");
 	tools_free.mlx_ptr = mlx_ptr;
 	tools_free.win_ptr = win_ptr;

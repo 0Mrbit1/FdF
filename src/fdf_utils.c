@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:51:00 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/08 01:19:59 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/09 01:10:44 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,29 @@ void	clear_list(Point3D *head)
 		node = node->next;
 		free(to_free);
 	}
+}
+
+Point3D	*setup_nodes(int *map_data, int **map)
+{
+	int		j;
+	Point3D	*head;
+	Point3D	*node;
+
+	j = 0;
+	head = store_in_node(map, map_data[1] - 1, j);
+	node = head;
+	j += 4;
+	while (j < map_data[0] * 4)
+	{
+		node->next = store_in_node(map, map_data[1] - 1, j);
+		node = node->next;
+		j += 4;
+	}
+	node = head;
+	while (node)
+	{
+		isometric_projection(node, map_data[0], map_data[1]);
+		node = node->next;
+	}
+	return (head);
 }
