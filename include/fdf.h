@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:26 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/10 01:40:31 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/10 05:44:14 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ typedef struct tools
 
 int						**map_parser(int fd, int *l_array,
 							int *number_of_lines);
-void	rendering_engine(Point3D *head, int *map_data,
-		void *mlx_ptr, int **map);
+void					rendering_engine(Point3D *head, int *map_data,
+								void *mlx_ptr, int **map);
 long					convert_to_decimal(char *str);
 void					free_array(int **hold, int y);
 void					free_array_char(char **hold, int y);
@@ -66,20 +66,20 @@ double					degrees_to_radians(double angle_degrees);
 void					clear_list(Point3D *head);
 Point3D					*jump_to_node(Point3D *node, int skip);
 void					draw_pixel(image_data img_data, img_pxl pixel);
-void	isometric_projection(Point3D *point, int scal );
+void					isometric_projection(Point3D *point, int *origin_scal);
 void					initialise_array(int *coord_data, Point3D *node,
 							Point3D *next);
 void					draw_line(Point3D *node, Point3D *next,
 							image_data img_data);
-void					project(Point3D *head, 
-							image_data img_data , int scal);
+void project(Point3D *head, image_data img_data , int *origin_scal);
 
-Point3D *setup_nodes(int *map_data, int **map , int scal) ;
+Point3D	*setup_nodes(int *map_data, int **map , int *origin_scal);
 
-void draw_below_side(int *map_data, image_data img_data, int **map , int scal); 
+void	draw_below_side(int *map_data, image_data img_data, int **map , int *origin_scal) ; 
 void	draw_right_side(Point3D *head, int *map_data, image_data img_data,
-		int **map);
+		int **map , int *origin_scal) ; 
 void	draw_last_point(Point3D *below, int *map_data, image_data img_data,
-		int **map);
-int check_for_chars(char **str);
-int determine_scal(int **map , int  *map_data);
+		int **map , int *origin_scal);
+int 					check_for_chars(char **str);
+
+int *define_origine_scal(int **map , int *map_data); 

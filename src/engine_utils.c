@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 01:05:33 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/10 01:32:15 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/10 05:51:03 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,25 @@ void	draw_pixel(image_data img_data, img_pxl pixel)
 
 	index = (pixel.y * img_data.size_line) + (pixel.x * (img_data.bits_per_pixel
 				/ 8));
-	if (pixel.y > 1000 || pixel.y <  0 || pixel.x > 1000 || pixel.x <  0)
+	if (index < 0)
+	{
 		return ;
+	}
 	img_data.img_cordinates[index] = pixel.color % 256;
 	img_data.img_cordinates[index + 1] = (pixel.color % 65536) / 256;
 	img_data.img_cordinates[index + 2] = pixel.color / 65536;
 }
 
-void	isometric_projection(Point3D *point, int scal)
+void	isometric_projection(Point3D *point, int *origin_scal )
 {
 	int	prev_x;
+	int scal;
 
+	scal = origin_scal[2];
 	prev_x = point->x;
-	point->x = 450 + (prev_x * scal - point->y * scal)
+	point->x =  origin_scal[0] + (prev_x * scal - point->y * scal)
 		* cos(ANGLE);
-	point->y = 450 + (prev_x * scal + point->y * scal)
+	point->y =  origin_scal[1] + (prev_x * scal + point->y * scal)
 		* sin(ANGLE) - point->z * scal;
 }
 
@@ -87,7 +91,7 @@ void	draw_line(Point3D *node, Point3D *next, image_data img_data)
 	}
 }
 
-void	project(Point3D *head, image_data img_data , int scal)
+void	project(Point3D *head, image_data img_data , int *origin_scal)
 {
 	img_pxl	pixel;
 	Point3D	*node;
@@ -95,7 +99,7 @@ void	project(Point3D *head, image_data img_data , int scal)
 	node = head;
 	while (node)
 	{
-		isometric_projection(node, scal);
+		isometric_projection(node, origin_scal);
 		pixel.x = node->x;
 		pixel.y = node->y;
 		pixel.color = node->color;

@@ -6,25 +6,25 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 01:36:14 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/10 01:42:08 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/10 05:42:05 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
 void	draw_last_point(Point3D *below, int *map_data, image_data img_data,
-		int **map)
+		int **map , int *origin_scal)
 {
 	Point3D	*node;
 
 	node = store_in_node(map, map_data[1] - 1, map_data[0] * 4 - 4);
-	isometric_projection(node, determine_scal(map ,map_data) );
+	isometric_projection(node, origin_scal);
 	draw_line(below, node, img_data);
 	clear_list(node);
 }
 
 void	draw_right_side(Point3D *head, int *map_data, image_data img_data,
-		int **map)
+		int **map , int *origin_scal)
 {
 	Point3D	*node;
 	Point3D	*below;
@@ -42,15 +42,15 @@ void	draw_right_side(Point3D *head, int *map_data, image_data img_data,
 		draw_line(node, below, img_data);
 		lines++;
 	}
-	draw_last_point(below, map_data, img_data, map);
+	draw_last_point(below, map_data, img_data, map ,  origin_scal);
 }
 
-void	draw_below_side(int *map_data, image_data img_data, int **map , int scal)
+void	draw_below_side(int *map_data, image_data img_data, int **map , int *origin_scal)
 {
 	Point3D	*node;
 	Point3D	*head;
 
-	head = setup_nodes(map_data, map , scal);
+	head = setup_nodes(map_data, map , origin_scal);
 	node = head;
 	while (node && node->next)
 	{
