@@ -54,14 +54,17 @@ void	rendering_engine(Point3D *head, int *map_data, void *mlx_ptr, int **map)
 	image_data	img_data;
 	void		*win_ptr;
 	free_tools	tools_free;
+	int *map_data_n_origin[2] ;
 
 	img_data.img_ptr = mlx_new_image(mlx_ptr, 1000, 1000);
 	img_data.img_cordinates = mlx_get_data_addr(img_data.img_ptr,
 			&(img_data.bits_per_pixel), &(img_data.size_line),
 			&(img_data.endian));
-	pointes_renderer(head, img_data, map_data , define_origine_scal(map , map_data));
-	draw_right_side(head, map_data, img_data, map , define_origine_scal(map , map_data) );
-	draw_below_side(map_data, img_data, map , define_origine_scal(map , map_data));
+	map_data_n_origin[0] = map_data; 
+	map_data_n_origin[1] =  define_origine_scal(map , map_data) ;
+	pointes_renderer(head, img_data, map_data , map_data_n_origin[1]);
+	draw_right_side(head, map_data, img_data, map , map_data_n_origin[1] );
+	draw_below_side(map_data, img_data, map , map_data_n_origin[1]);
 	win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF");
 	tools_free.mlx_ptr = mlx_ptr;
 	tools_free.win_ptr = win_ptr;
