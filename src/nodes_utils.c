@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   nodes_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:51:00 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/09 01:10:44 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/10 01:37:46 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	clear_list(Point3D *head)
 	}
 }
 
-Point3D	*setup_nodes(int *map_data, int **map)
+Point3D	*setup_nodes(int *map_data, int **map , int scal)
 {
 	int		j;
 	Point3D	*head;
@@ -87,7 +87,7 @@ Point3D	*setup_nodes(int *map_data, int **map)
 	node = head;
 	while (node)
 	{
-		isometric_projection(node, map_data[0], map_data[1]);
+		isometric_projection(node, scal);
 		node = node->next;
 	}
 	return (head);

@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 01:05:33 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/10 01:12:31 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/10 01:32:15 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,10 @@ void	draw_pixel(image_data img_data, img_pxl pixel)
 	img_data.img_cordinates[index + 2] = pixel.color / 65536;
 }
 
-void	isometric_projection(Point3D *point, int map_width, int map_lenght )
+void	isometric_projection(Point3D *point, int scal)
 {
 	int	prev_x;
-	int scal; 
-	
-	scal = 1000 / (map_lenght + map_width);
+
 	prev_x = point->x;
 	point->x = 450 + (prev_x * scal - point->y * scal)
 		* cos(ANGLE);
@@ -89,7 +87,7 @@ void	draw_line(Point3D *node, Point3D *next, image_data img_data)
 	}
 }
 
-void	project(Point3D *head, int *map_data, image_data img_data)
+void	project(Point3D *head, image_data img_data , int scal)
 {
 	img_pxl	pixel;
 	Point3D	*node;
@@ -97,7 +95,7 @@ void	project(Point3D *head, int *map_data, image_data img_data)
 	node = head;
 	while (node)
 	{
-		isometric_projection(node, map_data[0], map_data[1]);
+		isometric_projection(node, scal);
 		pixel.x = node->x;
 		pixel.y = node->y;
 		pixel.color = node->color;

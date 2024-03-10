@@ -6,7 +6,7 @@
 /*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:26 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/09 23:11:36 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/10 01:40:31 by abdellah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,20 @@ double					degrees_to_radians(double angle_degrees);
 void					clear_list(Point3D *head);
 Point3D					*jump_to_node(Point3D *node, int skip);
 void					draw_pixel(image_data img_data, img_pxl pixel);
-void	isometric_projection(Point3D *point, int map_width, int map_lenght );
+void	isometric_projection(Point3D *point, int scal );
 void					initialise_array(int *coord_data, Point3D *node,
 							Point3D *next);
 void					draw_line(Point3D *node, Point3D *next,
 							image_data img_data);
-void					project(Point3D *head, int *map_data,
-							image_data img_data);
+void					project(Point3D *head, 
+							image_data img_data , int scal);
 
-Point3D	*setup_nodes(int *map_data, int **map); 
+Point3D *setup_nodes(int *map_data, int **map , int scal) ;
 
-void	draw_below_side(int *map_data, image_data img_data, int **map);
+void draw_below_side(int *map_data, image_data img_data, int **map , int scal); 
 void	draw_right_side(Point3D *head, int *map_data, image_data img_data,
 		int **map);
 void	draw_last_point(Point3D *below, int *map_data, image_data img_data,
 		int **map);
 int check_for_chars(char **str);
+int determine_scal(int **map , int  *map_data);

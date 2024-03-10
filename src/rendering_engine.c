@@ -13,8 +13,7 @@
 #include "../include/fdf.h"
 
 
-
-void	pointes_renderer(Point3D *head, image_data img_data, int *map_data)
+void	pointes_renderer(Point3D *head, image_data img_data, int *map_data , int scal)
 {
 	int		links;
 	int		lines;
@@ -23,7 +22,7 @@ void	pointes_renderer(Point3D *head, image_data img_data, int *map_data)
 	links = 0;
 	lines = 0;
 	node = head;
-	project(head, map_data, img_data);
+	project(head, img_data , scal);
 	while (lines != map_data[1] - 1)
 	{
 		while (links != map_data[0] - 1)
@@ -61,9 +60,9 @@ void	rendering_engine(Point3D *head, int *map_data, void *mlx_ptr, int **map)
 	img_data.img_cordinates = mlx_get_data_addr(img_data.img_ptr,
 			&(img_data.bits_per_pixel), &(img_data.size_line),
 			&(img_data.endian));
-	pointes_renderer(head, img_data, map_data);
+	pointes_renderer(head, img_data, map_data ,  determine_scal(map ,map_data));
 	draw_right_side(head, map_data, img_data, map);
-	draw_below_side(map_data, img_data, map);
+	draw_below_side(map_data, img_data, map , determine_scal(map , map_data) );
 	win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF");
 	tools_free.mlx_ptr = mlx_ptr;
 	tools_free.win_ptr = win_ptr;
@@ -71,4 +70,31 @@ void	rendering_engine(Point3D *head, int *map_data, void *mlx_ptr, int **map)
 	mlx_put_image_to_window(mlx_ptr, win_ptr, img_data.img_ptr, 0, 0);
 	mlx_key_hook(win_ptr, &close_window_event, &tools_free);
 	mlx_loop(mlx_ptr);
+}
+
+int determine_scal(int **map , int  *map_data)
+{
+	int default_scal;
+	int i;
+	int j;
+	
+	default_scal = 1000/(map_data[0] + map_data[1]);
+	i = 0 ; 
+	j = 0 ;
+
+	while ( i < map_data[1])
+	{
+
+		while(j < map_data[0])
+		{
+			if (map[i][j +2] > 60 ||  map[i][j +2] < -60)
+			{
+				return default_scal; 
+			}
+				j += 4 ;
+		}
+		j = 0 ;
+		i++;
+	}
+	return default_scal ; 
 }
