@@ -53,7 +53,7 @@ int	close_window_event(int keycode, free_tools *mlx_free)
 int close_window_event_mouse(int button, free_tools *mlx_free)
 {
 
-	if (button == 17)
+	if (button == 4)
 	{
 		mlx_destroy_image(mlx_free->mlx_ptr, mlx_free->img_ptr);
 		mlx_destroy_window(mlx_free->mlx_ptr, mlx_free->win_ptr);
@@ -87,7 +87,7 @@ void	rendering_engine(Point3D *head, int *map_data, void *mlx_ptr, int **map)
 	tools_free.img_ptr = img_data.img_ptr;
 	mlx_put_image_to_window(mlx_ptr, win_ptr, img_data.img_ptr, 0, 0);
 	mlx_key_hook(win_ptr, &close_window_event, &tools_free);
-	mlx_mouse_hook (win_ptr,&close_window_event_mouse , &tools_free);
+	mlx_hook(win_ptr, 17, 0, &close_window_event_mouse, &tools_free);
 	mlx_loop(mlx_ptr);
 }
 
