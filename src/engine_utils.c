@@ -6,7 +6,7 @@
 /*   By: abdo1 <abdo1@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 01:05:33 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/11 06:17:53 by abdo1            ###   ########.fr       */
+/*   Updated: 2024/03/11 06:27:32 by abdo1            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	draw_pixel(image_data img_data, img_pxl pixel)
 {
 	int	index;
-	if (pixel.x >= 1000)
+	if (pixel.x >= 1000 || pixel.y >=1000)
 		return;
 
 	index = (pixel.y * img_data.size_line) + (pixel.x * (img_data.bits_per_pixel
