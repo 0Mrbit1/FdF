@@ -76,10 +76,8 @@ void project(Point3D *head, image_data img_data , int *origin_scal);
 Point3D	*setup_nodes(int *map_data, int **map , int *origin_scal);
 
 void	draw_below_side(int *map_data, image_data img_data, int **map , int *origin_scal) ; 
-void	draw_right_side(Point3D *head, int *map_data, image_data img_data,
-		int **map , int *origin_scal) ; 
-void	draw_last_point(Point3D *below, int *map_data, image_data img_data,
-		int **map , int *origin_scal);
+void	draw_right_side(Point3D *head, int **map_data, image_data img_data,
+		int **map);
 int 					check_for_chars(char **str);
 
 int *define_origine_scal(int **map , int *map_data); 

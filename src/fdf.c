@@ -49,7 +49,7 @@ static void	fdf(int fd, void *mlx_ptr)
 	if (!map)
 	{
 		perror("please entre valid map.");
-		return;
+		return ;
 	}
 	head = points_placer(map_data[1], map_data[0], map);
 	rendering_engine(head, map_data, mlx_ptr, map);

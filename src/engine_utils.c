@@ -12,7 +12,7 @@
 
 #include "../include/fdf.h"
 
-#define ANGLE 30*M_PI / 180
+#define ANGLE 30 * M_PI / 180
 
 void	draw_pixel(image_data img_data, img_pxl pixel)
 {
@@ -29,17 +29,16 @@ void	draw_pixel(image_data img_data, img_pxl pixel)
 	img_data.img_cordinates[index + 2] = pixel.color / 65536;
 }
 
-void	isometric_projection(Point3D *point, int *origin_scal )
+void	isometric_projection(Point3D *point, int *origin_scal)
 {
 	int	prev_x;
-	int scal;
+	int	scal;
 
 	scal = origin_scal[2];
 	prev_x = point->x;
-	point->x =  origin_scal[0] + (prev_x * scal - point->y * scal)
-		* cos(ANGLE);
-	point->y =  origin_scal[1] + (prev_x * scal + point->y * scal)
-		* sin(ANGLE) - point->z * scal;
+	point->x = origin_scal[0] + (prev_x * scal - point->y * scal) * cos(ANGLE);
+	point->y = origin_scal[1] + (prev_x * scal + point->y * scal) * sin(ANGLE)
+		- point->z * scal;
 }
 
 void	initialise_array(int *coord_data, Point3D *node, Point3D *next)
@@ -91,7 +90,7 @@ void	draw_line(Point3D *node, Point3D *next, image_data img_data)
 	}
 }
 
-void	project(Point3D *head, image_data img_data , int *origin_scal)
+void	project(Point3D *head, image_data img_data, int *origin_scal)
 {
 	img_pxl	pixel;
 	Point3D	*node;

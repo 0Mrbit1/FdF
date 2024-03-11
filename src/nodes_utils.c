@@ -68,7 +68,7 @@ void	clear_list(Point3D *head)
 	}
 }
 
-Point3D	*setup_nodes(int *map_data, int **map , int *origin_scal)
+Point3D	*setup_nodes(int *map_data, int **map, int *origin_scal)
 {
 	int		j;
 	Point3D	*head;
