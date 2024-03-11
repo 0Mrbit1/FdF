@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdo1 <abdo1@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:26 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/10 05:44:14 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/11 05:57:01 by abdo1            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 #include "../include/libft.h"
 #include "../include/get_next_line.h"
-#include "../include/mlx.h"
 #include <fcntl.h>
 #include <math.h>
-
+#include <mlx.h>
 typedef struct coordinates
 {
 	int					x;
@@ -53,7 +52,7 @@ typedef struct tools
 int						**map_parser(int fd, int *l_array,
 							int *number_of_lines);
 void					rendering_engine(Point3D *head, int *map_data,
-								void *mlx_ptr, int **map);
+							void *mlx_ptr, int **map);
 long					convert_to_decimal(char *str);
 void					free_array(int **hold, int y);
 void					free_array_char(char **hold);
@@ -71,13 +70,16 @@ void					initialise_array(int *coord_data, Point3D *node,
 							Point3D *next);
 void					draw_line(Point3D *node, Point3D *next,
 							image_data img_data);
-void project(Point3D *head, image_data img_data , int *origin_scal);
+void					project(Point3D *head, image_data img_data,
+							int *origin_scal);
 
-Point3D	*setup_nodes(int *map_data, int **map , int *origin_scal);
+Point3D					*setup_nodes(int *map_data, int **map,
+							int *origin_scal);
 
-void	draw_below_side(int *map_data, image_data img_data, int **map , int *origin_scal) ; 
-void	draw_right_side(Point3D *head, int **map_data, image_data img_data,
-		int **map);
-int 					check_for_chars(char **str);
+void					draw_below_side(int *map_data, image_data img_data,
+							int **map, int *origin_scal);
+void					draw_right_side(Point3D *head, int **map_data,
+							image_data img_data, int **map);
+int						check_for_chars(char **str);
 
-int *define_origine_scal(int **map , int *map_data); 
+int						*define_origine_scal(int **map, int *map_data);
