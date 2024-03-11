@@ -66,6 +66,7 @@ void	rendering_engine(Point3D *head, int *map_data, void *mlx_ptr, int **map)
 	pointes_renderer(head, img_data, map_data, map_data_n_origin[1]);
 	draw_right_side(head, map_data_n_origin, img_data, map);
 	draw_below_side(map_data, img_data, map, map_data_n_origin[1]);
+	free(map_data_n_origin[1]);
 	win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF");
 	tools_free.mlx_ptr = mlx_ptr;
 	tools_free.win_ptr = win_ptr;
