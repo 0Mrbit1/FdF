@@ -97,7 +97,7 @@ int	*define_origine_scal(int **map, int *map_data)
 			point.z = map[i][j + 2];
 			j += 4;
 			isometric_projection(&point, origin_scal);
-			if (point.y < 0 || point.y > 1000)
+			if (point.y < 0)
 			{
 				origin_scal[1] = 100 - point.y;
 				origin_scal[2] = origin_scal[2] / 2;

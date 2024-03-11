@@ -63,9 +63,25 @@ static void	store_points(char **splited_line, int ***map, int y,
 		(*map)[y][i++] = ft_atoi(splited_line[x++]);
 		setup_color(&i, splited_line[x - 1], map, y);
 	}
-
 }
 
+char *resize_str(char *str)
+{
+	int len;
+	if (!str)
+		return NULL ; 
+
+	len = ft_strlen(str);
+
+	if (str[len-1] == ' ')
+		str[len-1] = '\n';
+	if (str[len-2] == ' ')
+	{
+		str[len-2] = '\n';
+	}
+
+	return str;
+}
 
 int	**map_parser(int fd, int *array_lenght, int *number_of_lines)
 {
@@ -76,6 +92,7 @@ int	**map_parser(int fd, int *array_lenght, int *number_of_lines)
 	map = NULL;
 	*number_of_lines = 0;
 	line = get_next_line(fd);
+	line = resize_str(line);
 	splited_line = ft_split(line, ' ');
 	*array_lenght = _line_points(splited_line);
 	while (line)
@@ -84,6 +101,7 @@ int	**map_parser(int fd, int *array_lenght, int *number_of_lines)
 		free(line);
 		free_array_char(splited_line, *array_lenght);
 		line = get_next_line(fd);
+		line = resize_str(line);
 		if (line)
 			splited_line = ft_split(line, ' ');
 		(*number_of_lines)++;
