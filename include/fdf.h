@@ -6,7 +6,7 @@
 /*   By: abdo1 <abdo1@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:26 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/11 06:07:39 by abdo1            ###   ########.fr       */
+/*   Updated: 2024/03/11 07:12:26 by abdo1            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,3 +83,5 @@ void					draw_right_side(Point3D *head, int **map_data,
 int						check_for_chars(char **str);
 
 int						*define_origine_scal(int **map, int *map_data);
+
+int	*define_origine_scal(int **map, int *map_data);

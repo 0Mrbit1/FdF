@@ -3,7 +3,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -g -fsanitize=leak
 LIB_DIR = /home/abdo1/Desktop/projects/fdf/lib
 LIBS = -lXext -lX11 -lm -lbsd -lft -lftgnl -lftprintf -lmlx_Linux
-SOURCES = rendering_engine.c map_parser.c fdf.c hex_to_dec.c map_parser_utils.c nodes_utils.c engine_utils.c draw_sides.c
+SOURCES = rendering_engine.c map_parser.c fdf.c hex_to_dec.c map_parser_utils.c nodes_utils.c engine_utils.c draw_sides.c define_scal.c
 OBJECTS = $(SOURCES:.c=.o)
 EXECUTABLE = fdf
 all: $(EXECUTABLE)

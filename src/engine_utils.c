@@ -6,13 +6,13 @@
 /*   By: abdo1 <abdo1@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 01:05:33 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/11 06:27:32 by abdo1            ###   ########.fr       */
+/*   Updated: 2024/03/11 07:16:19 by abdo1            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-#define ANGLE 30 * M_PI / 180
+#define ANGLE 0.523599
 
 void	draw_pixel(image_data img_data, img_pxl pixel)
 {
