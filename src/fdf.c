@@ -68,7 +68,7 @@ int	main(int argc, char **argv)
 		perror("please provide FDF file.");
 		return (1);
 	}
-	path = ft_strjoin("../tests/maps/test_maps/", argv[1]);
+	path = ft_strjoin("../tests/", argv[1]);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
