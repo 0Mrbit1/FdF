@@ -6,7 +6,7 @@
 /*   By: abdo1 <abdo1@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:26 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/11 05:57:01 by abdo1            ###   ########.fr       */
+/*   Updated: 2024/03/11 06:07:39 by abdo1            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../include/get_next_line.h"
 #include <fcntl.h>
 #include <math.h>
-#include <mlx.h>
+#include "../include/mlx.h"
 typedef struct coordinates
 {
 	int					x;
