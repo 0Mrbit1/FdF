@@ -17,9 +17,9 @@
 void	draw_pixel(image_data img_data, img_pxl pixel)
 {
 	int	index;
-	if (pixel.x >= 1000 || pixel.y >=1000)
-		return;
 
+	if (pixel.x >= 1000 || pixel.y >= 1000)
+		return ;
 	index = (pixel.y * img_data.size_line) + (pixel.x * (img_data.bits_per_pixel
 				/ 8));
 	if (index < 0)

@@ -50,9 +50,8 @@ int	close_window_event(int keycode, free_tools *mlx_free)
 	return (1);
 }
 
-int close_window_event_mouse(int button, free_tools *mlx_free)
+int	close_window_event_mouse(int button, free_tools *mlx_free)
 {
-
 	if (button == 4)
 	{
 		mlx_destroy_image(mlx_free->mlx_ptr, mlx_free->img_ptr);
@@ -61,7 +60,6 @@ int close_window_event_mouse(int button, free_tools *mlx_free)
 		return (0);
 	}
 	return (1);
-
 }
 
 void	rendering_engine(Point3D *head, int *map_data, void *mlx_ptr, int **map)
@@ -91,27 +89,18 @@ void	rendering_engine(Point3D *head, int *map_data, void *mlx_ptr, int **map)
 	mlx_loop(mlx_ptr);
 }
 
-int	*define_origine_scal(int **map, int *map_data)
+int	*resizer_helper(int **map, int *map_data, int *origin_scal, int *index)
 {
-	int *origin_scal;
-	Point3D point;
-	int i;
-	int j;
+	Point3D	point;
 
-	origin_scal = malloc(sizeof(int) * 3);
-	origin_scal[0] = 480;
-	origin_scal[1] = 490;
-	origin_scal[2] = 1000 / (map_data[0] + map_data[1]);
-	i = 0;
-	j = 0;
-	while (i < map_data[1])
+	while (index[0] < map_data[1])
 	{
-		while (j < map_data[0])
+		while (index[1] < map_data[0])
 		{
-			point.x = map[i][j];
-			point.y = map[i][j + 1];
-			point.z = map[i][j + 2];
-			j += 4;
+			point.x = map[index[0]][index[1]];
+			point.y = map[index[0]][index[1] + 1];
+			point.z = map[index[0]][index[1] + 2];
+			index[1] += 4;
 			isometric_projection(&point, origin_scal);
 			if (point.y < 0)
 			{
@@ -119,10 +108,26 @@ int	*define_origine_scal(int **map, int *map_data)
 				origin_scal[2] = origin_scal[2] / 2;
 				return (origin_scal);
 			}
-			j += 4;
+			index[1] += 4;
 		}
-		j = 0;
-		i++;
+		index[1] = 0;
+		index[0]++;
 	}
 	return (origin_scal);
+}
+
+int	*define_origine_scal(int **map, int *map_data)
+{
+	int *origin_scal;
+
+	int indexes[2];
+
+	indexes[0] = 0;
+	indexes[1] = 0;
+
+	origin_scal = malloc(sizeof(int) * 3);
+	origin_scal[0] = 480;
+	origin_scal[1] = 490;
+	origin_scal[2] = 1000 / (map_data[0] + map_data[1]);
+	return (resizer_helper(map, map_data, origin_scal, indexes));
 }
