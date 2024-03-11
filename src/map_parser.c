@@ -63,7 +63,9 @@ static void	store_points(char **splited_line, int ***map, int y,
 		(*map)[y][i++] = ft_atoi(splited_line[x++]);
 		setup_color(&i, splited_line[x - 1], map, y);
 	}
+
 }
+
 
 int	**map_parser(int fd, int *array_lenght, int *number_of_lines)
 {
