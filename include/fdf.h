@@ -56,7 +56,7 @@ void					rendering_engine(Point3D *head, int *map_data,
 								void *mlx_ptr, int **map);
 long					convert_to_decimal(char *str);
 void					free_array(int **hold, int y);
-void					free_array_char(char **hold, int y);
+void					free_array_char(char **hold);
 int						_line_points(char **line);
 Point3D					*setup_first_node(Point3D **head, Point3D **point,
 							int **map);

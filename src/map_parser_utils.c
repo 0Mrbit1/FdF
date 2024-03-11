@@ -23,12 +23,12 @@ void	free_array(int **hold, int y)
 	free(hold);
 }
 
-void	free_array_char(char **hold, int array_lenght)
+void	free_array_char(char **hold)
 {
 	int	j;
 
 	j = 0;
-	while (j < array_lenght)
+	while (hold[j])
 		free(hold[j++]);
 	free(hold);
 }

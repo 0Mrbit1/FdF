@@ -65,24 +65,6 @@ static void	store_points(char **splited_line, int ***map, int y,
 	}
 }
 
-/*char *resize_str(char *str)
-{
-	int len;
-	if (!str)
-		return NULL ; 
-
-	len = ft_strlen(str);
-
-	if (str[len-1] == ' ')
-		str[len-1] = '\n';
-	if (str[len-2] == ' ')
-	{
-		str[len-2] = '\n';
-	}
-
-	return str;
-}*/
-
 int	**map_parser(int fd, int *array_lenght, int *number_of_lines)
 {
 	char	*line;
@@ -98,10 +80,11 @@ int	**map_parser(int fd, int *array_lenght, int *number_of_lines)
 	{
 		store_points(splited_line, &map, *number_of_lines, *array_lenght);
 		free(line);
-		free_array_char(splited_line, *array_lenght);
+		free_array_char(splited_line);
 		line = get_next_line(fd);
 		if (line)
 			splited_line = ft_split(line, ' ');
+		
 		(*number_of_lines)++;
 	}
 	return (map);
