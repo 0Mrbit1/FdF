@@ -84,7 +84,6 @@ int	**map_parser(int fd, int *array_lenght, int *number_of_lines)
 		line = get_next_line(fd);
 		if (line)
 			splited_line = ft_split(line, ' ');
-		
 		(*number_of_lines)++;
 	}
 	return (map);
