@@ -55,25 +55,44 @@ static void	fdf(int fd, void *mlx_ptr)
 	clear_list(head);
 }
 
-int	main(int argc, char **argv)
+int error_handler(int argc , char **argv , char *path  , int fd )
 {
-	void	*mlx_ptr;
-	int		fd;
-	char	*path;
 
 	if (argc < 2)
 	{
 		perror("please provide FDF file.");
 		return (1);
 	}
-	path = ft_strjoin("../tests/", argv[1]);
-	fd = open(path, O_RDONLY);
-	if (fd < 0 || *(ft_strchr(argv[1], '.') + 4) != '\0')
+	else if (fd < 0)
 	{
 		perror("cannot open file or wrong extention");
 		free(path);
 		return (1);
 	}
+	else if(!ft_strchr(argv[1], '.'))
+	{
+		return 1; 
+	}
+	else if (( *(ft_strchr(argv[1], '.') + 4)))
+	{
+		return 1
+
+	}
+	return 0;
+}
+
+int	main(int argc, char **argv)
+{
+	void	*mlx_ptr;
+	int		fd;
+	char	*path;
+
+	path = ft_strjoin("../tests/", argv[1]);
+	fd = open(path, O_RDONLY);
+
+	if (!error_handler(argc , argv , path  , fd ));
+		return 1;
+	
 	mlx_ptr = mlx_init();
 	fdf(fd, mlx_ptr);
 	mlx_destroy_display(mlx_ptr);
