@@ -50,15 +50,11 @@ int	close_window_event(int keycode, free_tools *mlx_free)
 	return (1);
 }
 
-int	close_window_event_mouse(int button, free_tools *mlx_free)
+int	close_window_event_mouse(free_tools *mlx_free)
 {
-	if (button == 4)
-	{
-		mlx_destroy_image(mlx_free->mlx_ptr, mlx_free->img_ptr);
-		mlx_destroy_window(mlx_free->mlx_ptr, mlx_free->win_ptr);
-		mlx_loop_end(mlx_free->mlx_ptr);
-		return (0);
-	}
+	mlx_destroy_image(mlx_free->mlx_ptr, mlx_free->img_ptr);
+	mlx_destroy_window(mlx_free->mlx_ptr, mlx_free->win_ptr);
+	mlx_loop_end(mlx_free->mlx_ptr);
 	return (1);
 }
 
