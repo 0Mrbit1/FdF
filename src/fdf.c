@@ -6,7 +6,7 @@
 /*   By: abdo1 <abdo1@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:41 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/11 23:50:32 by abdo1            ###   ########.fr       */
+/*   Updated: 2024/03/12 02:52:57 by abdo1            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	main(int argc, char **argv)
 	}
 	path = ft_strjoin("../tests/", argv[1]);
 	fd = open(path, O_RDONLY);
-	if (fd < 0 || *(ft_strchr(path, '.') + 4) != '\0')
+	if (fd < 0 || *(ft_strchr(argv[1], '.') + 4) != '\0')
 	{
 		perror("cannot open file or wrong extention");
 		free(path);
