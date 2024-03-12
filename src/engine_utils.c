@@ -65,9 +65,9 @@ void	initialise_array(int *coord_data, t_Point3D *node, t_Point3D *next)
 
 void	draw_line(t_Point3D *node, t_Point3D *next, t_image_data img_data)
 {
-	int		coord_data[10];
+	int			coord_data[10];
 	t_img_pxl	pixel;
-	int		e2;
+	int			e2;
 
 	initialise_array(coord_data, node, next);
 	while (1)

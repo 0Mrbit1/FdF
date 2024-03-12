@@ -28,7 +28,7 @@ void	draw_right_side(t_Point3D *head, int **map_data, t_image_data img_data,
 {
 	t_Point3D	*node;
 	t_Point3D	*below;
-	int		lines;
+	int			lines;
 
 	node = head;
 	node = jump_to_node(node, map_data[0][0] * 2 - 2);

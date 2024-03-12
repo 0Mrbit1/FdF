@@ -70,7 +70,7 @@ void	clear_list(t_Point3D *head)
 
 t_Point3D	*setup_nodes(int *map_data, int **map, int *origin_scal)
 {
-	int		j;
+	int			j;
 	t_Point3D	*head;
 	t_Point3D	*node;
 

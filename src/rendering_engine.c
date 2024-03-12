@@ -15,8 +15,8 @@
 void	pointes_renderer(t_Point3D *head, t_image_data img_data, int *map_data,
 		int *origin_scal)
 {
-	int		links;
-	int		lines;
+	int			links;
+	int			lines;
 	t_Point3D	*node;
 
 	links = 0;
@@ -58,12 +58,13 @@ int	close_window_event_mouse(t_free_tools *mlx_free)
 	return (1);
 }
 
-void	rendering_engine(t_Point3D *head, int *map_data, void *mlx_ptr, int **map)
+void	rendering_engine(t_Point3D *head, int *map_data, void *mlx_ptr,
+		int **map)
 {
 	t_image_data	img_data;
-	void		*win_ptr;
+	void			*win_ptr;
 	t_free_tools	tools_free;
-	int			*map_data_n_origin[2];
+	int				*map_data_n_origin[2];
 
 	img_data.img_ptr = mlx_new_image(mlx_ptr, 1000, 1000);
 	img_data.img_cordinates = mlx_get_data_addr(img_data.img_ptr,

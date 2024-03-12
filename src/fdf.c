@@ -12,10 +12,11 @@
 
 #include "../include/fdf.h"
 
-static t_Point3D	*points_placer(int number_of_lines, int array_lenght, int **map)
+static t_Point3D	*points_placer(int number_of_lines, int array_lenght,
+		int **map)
 {
-	int		i;
-	int		j;
+	int			i;
+	int			j;
 	t_Point3D	*point;
 	t_Point3D	*head;
 
@@ -41,8 +42,8 @@ static t_Point3D	*points_placer(int number_of_lines, int array_lenght, int **map
 
 static void	fdf(int fd, void *mlx_ptr)
 {
-	int		**map;
-	int		map_data[2];
+	int			**map;
+	int			map_data[2];
 	t_Point3D	*head;
 
 	map = map_parser(fd, &map_data[0], &map_data[1]);
