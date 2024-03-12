@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=leak
-LIB_DIR = /home/abdo1/Desktop/projects/fdf/lib
+LIB_DIR = $(PWD)/../lib
 LIBS = -lXext -lX11 -lm -lbsd -lft -lftgnl -lftprintf -lmlx_Linux
 SOURCES = rendering_engine.c map_parser.c fdf.c hex_to_dec.c map_parser_utils.c nodes_utils.c engine_utils.c draw_sides.c define_scal.c
 OBJECTS = rendering_engine.o map_parser.o fdf.o hex_to_dec.o map_parser_utils.o nodes_utils.o engine_utils.o draw_sides.o define_scal.o
