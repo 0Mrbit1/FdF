@@ -6,7 +6,7 @@
 /*   By: abdo1 <abdo1@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:41 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/12 02:52:57 by abdo1            ###   ########.fr       */
+/*   Updated: 2024/03/12 05:32:53 by abdo1            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ static void	fdf(int fd, void *mlx_ptr)
 
 	map = map_parser(fd, &map_data[0], &map_data[1]);
 	if (!map)
-	{
-		perror("please entre valid map.");
 		return ;
-	}
 	head = points_placer(map_data[1], map_data[0], map);
 	rendering_engine(head, map_data, mlx_ptr, map);
 	free_array(map, map_data[1]);
