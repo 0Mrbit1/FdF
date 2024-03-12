@@ -6,7 +6,7 @@
 /*   By: abdo1 <abdo1@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:41 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/12 05:58:27 by abdo1            ###   ########.fr       */
+/*   Updated: 2024/03/12 06:31:46 by abdo1            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,8 @@ static void	fdf(int fd, void *mlx_ptr)
 	clear_list(head);
 }
 
-int error_handler(int argc , char **argv , char *path  , int fd )
+int	error_handler(int argc, char **argv, char *path, int fd)
 {
-
 	if (argc < 2)
 	{
 		perror("please provide FDF file.");
@@ -69,16 +68,11 @@ int error_handler(int argc , char **argv , char *path  , int fd )
 		free(path);
 		return (1);
 	}
-	else if(!ft_strchr(argv[1], '.'))
-	{
-		return 1; 
-	}
-	else if (( *(ft_strchr(argv[1], '.') + 4)))
-	{
-		return 1
-
-	}
-	return 0;
+	else if (!ft_strchr(argv[1], '.'))
+		return (1);
+	else if ((*(ft_strchr(argv[1], '.') + 4)))
+		return (1);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -89,10 +83,8 @@ int	main(int argc, char **argv)
 
 	path = ft_strjoin("../tests/", argv[1]);
 	fd = open(path, O_RDONLY);
-
-	if (!error_handler(argc , argv , path  , fd ));
-		return 1;
-	
+	if (error_handler(argc, argv, path, fd))
+		return (1);
 	mlx_ptr = mlx_init();
 	fdf(fd, mlx_ptr);
 	mlx_destroy_display(mlx_ptr);
