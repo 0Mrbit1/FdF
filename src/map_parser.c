@@ -65,16 +65,16 @@ static void	store_points(char **splited_line, int ***map, int y,
 	}
 }
 
-
-int check_for_errors(int array_lenght , int f_array_len , int **map , int number_of_lines)
+int	check_for_errors(int array_lenght, int f_array_len, int **map,
+		int number_of_lines)
 {
 	if (array_lenght < f_array_len)
 	{
 		perror("please format the map properly.");
-		free_array(map, number_of_lines +1 );
-		return 1;
+		free_array(map, number_of_lines + 1);
+		return (1);
 	}
-	return 0 ;
+	return (0);
 }
 
 int	**map_parser(int fd, int *array_lenght, int *number_of_lines)
@@ -82,7 +82,7 @@ int	**map_parser(int fd, int *array_lenght, int *number_of_lines)
 	char	*line;
 	char	**splited_line;
 	int		**map;
-	int f_array_len;
+	int		f_array_len;
 
 	map = NULL;
 	*number_of_lines = 0;
@@ -95,8 +95,8 @@ int	**map_parser(int fd, int *array_lenght, int *number_of_lines)
 		store_points(splited_line, &map, *number_of_lines, *array_lenght);
 		free(line);
 		free_array_char(splited_line);
-		if (check_for_errors(*array_lenght ,f_array_len ,map , *number_of_lines))
-			return NULL;
+		if (check_for_errors(*array_lenght, f_array_len, map, *number_of_lines))
+			return (NULL);
 		line = get_next_line(fd);
 		splited_line = ft_split(line, ' ');
 		(*number_of_lines)++;
