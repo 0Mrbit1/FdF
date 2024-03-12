@@ -6,7 +6,7 @@
 /*   By: abdo1 <abdo1@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 07:12:51 by abdo1             #+#    #+#             */
-/*   Updated: 2024/03/11 07:14:45 by abdo1            ###   ########.fr       */
+/*   Updated: 2024/03/12 05:59:24 by abdo1            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	*resizer_helper(int **map, int *map_data, int *origin_scal, int *index)
 {
-	Point3D	point;
+	t_Point3D	point;
 
 	while (index[0] < map_data[1])
 	{

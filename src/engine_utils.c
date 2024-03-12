@@ -6,7 +6,7 @@
 /*   By: abdo1 <abdo1@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 01:05:33 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/11 07:16:19 by abdo1            ###   ########.fr       */
+/*   Updated: 2024/03/12 06:00:03 by abdo1            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #define ANGLE 0.523599
 
-void	draw_pixel(image_data img_data, img_pxl pixel)
+void	draw_pixel(t_image_data img_data, t_img_pxl pixel)
 {
 	int	index;
 
@@ -31,7 +31,7 @@ void	draw_pixel(image_data img_data, img_pxl pixel)
 	img_data.img_cordinates[index + 2] = pixel.color / 65536;
 }
 
-void	isometric_projection(Point3D *point, int *origin_scal)
+void	isometric_projection(t_Point3D *point, int *origin_scal)
 {
 	int	prev_x;
 	int	scal;
@@ -43,7 +43,7 @@ void	isometric_projection(Point3D *point, int *origin_scal)
 		- point->z * scal;
 }
 
-void	initialise_array(int *coord_data, Point3D *node, Point3D *next)
+void	initialise_array(int *coord_data, t_Point3D *node, t_Point3D *next)
 {
 	coord_data[0] = node->x;
 	coord_data[1] = node->y;
@@ -63,10 +63,10 @@ void	initialise_array(int *coord_data, Point3D *node, Point3D *next)
 	coord_data[9] = coord_data[5] - coord_data[6];
 }
 
-void	draw_line(Point3D *node, Point3D *next, image_data img_data)
+void	draw_line(t_Point3D *node, t_Point3D *next, t_image_data img_data)
 {
 	int		coord_data[10];
-	img_pxl	pixel;
+	t_img_pxl	pixel;
 	int		e2;
 
 	initialise_array(coord_data, node, next);
@@ -92,10 +92,10 @@ void	draw_line(Point3D *node, Point3D *next, image_data img_data)
 	}
 }
 
-void	project(Point3D *head, image_data img_data, int *origin_scal)
+void	project(t_Point3D *head, t_image_data img_data, int *origin_scal)
 {
-	img_pxl	pixel;
-	Point3D	*node;
+	t_img_pxl	pixel;
+	t_Point3D	*node;
 
 	node = head;
 	while (node)

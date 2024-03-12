@@ -12,12 +12,12 @@
 
 #include "../include/fdf.h"
 
-void	pointes_renderer(Point3D *head, image_data img_data, int *map_data,
+void	pointes_renderer(t_Point3D *head, t_image_data img_data, int *map_data,
 		int *origin_scal)
 {
 	int		links;
 	int		lines;
-	Point3D	*node;
+	t_Point3D	*node;
 
 	links = 0;
 	lines = 0;
@@ -38,7 +38,7 @@ void	pointes_renderer(Point3D *head, image_data img_data, int *map_data,
 	}
 }
 
-int	close_window_event(int keycode, free_tools *mlx_free)
+int	close_window_event(int keycode, t_free_tools *mlx_free)
 {
 	if (keycode == 65307)
 	{
@@ -50,7 +50,7 @@ int	close_window_event(int keycode, free_tools *mlx_free)
 	return (1);
 }
 
-int	close_window_event_mouse(free_tools *mlx_free)
+int	close_window_event_mouse(t_free_tools *mlx_free)
 {
 	mlx_destroy_image(mlx_free->mlx_ptr, mlx_free->img_ptr);
 	mlx_destroy_window(mlx_free->mlx_ptr, mlx_free->win_ptr);
@@ -58,11 +58,11 @@ int	close_window_event_mouse(free_tools *mlx_free)
 	return (1);
 }
 
-void	rendering_engine(Point3D *head, int *map_data, void *mlx_ptr, int **map)
+void	rendering_engine(t_Point3D *head, int *map_data, void *mlx_ptr, int **map)
 {
-	image_data	img_data;
+	t_image_data	img_data;
 	void		*win_ptr;
-	free_tools	tools_free;
+	t_free_tools	tools_free;
 	int			*map_data_n_origin[2];
 
 	img_data.img_ptr = mlx_new_image(mlx_ptr, 1000, 1000);

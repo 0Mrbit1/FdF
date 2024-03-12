@@ -6,18 +6,18 @@
 /*   By: abdo1 <abdo1@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 02:50:41 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/12 05:32:53 by abdo1            ###   ########.fr       */
+/*   Updated: 2024/03/12 05:58:27 by abdo1            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-static Point3D	*points_placer(int number_of_lines, int array_lenght, int **map)
+static t_Point3D	*points_placer(int number_of_lines, int array_lenght, int **map)
 {
 	int		i;
 	int		j;
-	Point3D	*point;
-	Point3D	*head;
+	t_Point3D	*point;
+	t_Point3D	*head;
 
 	i = 0;
 	head = setup_first_node(&head, &point, map);
@@ -43,7 +43,7 @@ static void	fdf(int fd, void *mlx_ptr)
 {
 	int		**map;
 	int		map_data[2];
-	Point3D	*head;
+	t_Point3D	*head;
 
 	map = map_parser(fd, &map_data[0], &map_data[1]);
 	if (!map)

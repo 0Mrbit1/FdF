@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sides.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdo1 <abdo1@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 01:36:14 by abdellah          #+#    #+#             */
-/*   Updated: 2024/03/10 05:42:05 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/12 06:00:22 by abdo1            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	draw_last_point(Point3D *below, int **map_data, image_data img_data,
+void	draw_last_point(t_Point3D *below, int **map_data, t_image_data img_data,
 		int **map)
 {
-	Point3D	*node;
+	t_Point3D	*node;
 
 	node = store_in_node(map, map_data[0][1] - 1, map_data[0][0] * 4 - 4);
 	isometric_projection(node, map_data[1]);
@@ -23,11 +23,11 @@ void	draw_last_point(Point3D *below, int **map_data, image_data img_data,
 	clear_list(node);
 }
 
-void	draw_right_side(Point3D *head, int **map_data, image_data img_data,
+void	draw_right_side(t_Point3D *head, int **map_data, t_image_data img_data,
 		int **map)
 {
-	Point3D	*node;
-	Point3D	*below;
+	t_Point3D	*node;
+	t_Point3D	*below;
 	int		lines;
 
 	node = head;
@@ -45,11 +45,11 @@ void	draw_right_side(Point3D *head, int **map_data, image_data img_data,
 	draw_last_point(below, map_data, img_data, map);
 }
 
-void	draw_below_side(int *map_data, image_data img_data, int **map,
+void	draw_below_side(int *map_data, t_image_data img_data, int **map,
 		int *origin_scal)
 {
-	Point3D	*node;
-	Point3D	*head;
+	t_Point3D	*node;
+	t_Point3D	*head;
 
 	head = setup_nodes(map_data, map, origin_scal);
 	node = head;
