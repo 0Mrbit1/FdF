@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
-#include "../include/get_next_line.h"
 #include "../include/ft_printf.h"
+#include "../include/get_next_line.h"
+#include "../include/libft.h"
 #include "../include/mlx.h"
 #include <fcntl.h>
 #include <math.h>
@@ -58,15 +58,16 @@ long					convert_to_decimal(char *str);
 void					free_array(int **hold, int y);
 void					free_array_char(char **hold);
 int						_line_points(char **line);
-t_Point3D					*setup_first_node(t_Point3D **head, t_Point3D **point,
+t_Point3D				*setup_first_node(t_Point3D **head, t_Point3D **point,
 							int **map);
-t_Point3D					*store_in_node(int **map, int i, int j);
+t_Point3D				*store_in_node(int **map, int i, int j);
 void					free_array(int **hold, int y);
 double					degrees_to_radians(double angle_degrees);
 void					clear_list(t_Point3D *head);
-t_Point3D					*jump_to_node(t_Point3D *node, int skip);
+t_Point3D				*jump_to_node(t_Point3D *node, int skip);
 void					draw_pixel(t_image_data img_data, t_img_pxl pixel);
-void					isometric_projection(t_Point3D *point, int *origin_scal);
+void					isometric_projection(t_Point3D *point,
+							int *origin_scal);
 void					initialise_array(int *coord_data, t_Point3D *node,
 							t_Point3D *next);
 void					draw_line(t_Point3D *node, t_Point3D *next,
@@ -74,7 +75,7 @@ void					draw_line(t_Point3D *node, t_Point3D *next,
 void					project(t_Point3D *head, t_image_data img_data,
 							int *origin_scal);
 
-t_Point3D					*setup_nodes(int *map_data, int **map,
+t_Point3D				*setup_nodes(int *map_data, int **map,
 							int *origin_scal);
 
 void					draw_below_side(int *map_data, t_image_data img_data,

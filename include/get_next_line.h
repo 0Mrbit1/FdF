@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdellah <abdellah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdo1 <abdo1@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 08:28:17 by acharik           #+#    #+#             */
-/*   Updated: 2024/03/07 01:35:44 by abdellah         ###   ########.fr       */
+/*   Updated: 2024/03/12 06:46:11 by abdo1            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-
-/*typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}					t_list*/
-;
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
